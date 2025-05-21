@@ -1,14 +1,32 @@
 
 import { useState } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
-import { Menu } from 'lucide-react';
+import { Menu, LogOut, User } from 'lucide-react';
+import { useAuth } from '@/hooks/useAuth';
+import { 
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu";
+import { toast } from '@/components/ui/sonner';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { user, isAuthenticated, logout } = useAuth();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    toast.success("Logged out successfully");
+    navigate("/");
   };
 
   return (
@@ -47,12 +65,39 @@ const Navbar = () => {
           >
             Customize
           </NavLink>
-          <Button 
-            asChild
-            className="bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
-          >
-            <Link to="/booking">Book Now</Link>
-          </Button>
+          
+          {isAuthenticated ? (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="border-ink-accent/30 hover:border-ink-accent">
+                  <User className="h-5 w-5 mr-2" />
+                  {user?.name || user?.email.split('@')[0]}
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={() => navigate("/profile")}>
+                  Profile
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => navigate("/booking")}>
+                  My Bookings
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem onClick={handleLogout}>
+                  <LogOut className="h-4 w-4 mr-2" />
+                  Logout
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          ) : (
+            <Button 
+              asChild
+              className="bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
+            >
+              <Link to="/auth">Login / Sign Up</Link>
+            </Button>
+          )}
         </div>
 
         {/* Mobile Menu Button */}
@@ -96,13 +141,51 @@ const Navbar = () => {
               >
                 Customize
               </NavLink>
-              <Button 
-                asChild
-                className="w-full bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark"
-                onClick={() => setIsMenuOpen(false)}
-              >
-                <Link to="/booking">Book Now</Link>
-              </Button>
+
+              {isAuthenticated ? (
+                <>
+                  <div className="border-t border-ink-accent/10 pt-4">
+                    <p className="px-4 text-sm text-muted-foreground">Signed in as {user?.name || user?.email}</p>
+                  </div>
+                  <NavLink 
+                    to="/profile" 
+                    className={({ isActive }) => 
+                      `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                    }
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    Profile
+                  </NavLink>
+                  <NavLink 
+                    to="/booking" 
+                    className={({ isActive }) => 
+                      `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                    }
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    My Bookings
+                  </NavLink>
+                  <Button 
+                    variant="destructive"
+                    className="w-full"
+                    onClick={() => {
+                      handleLogout();
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    <LogOut className="h-4 w-4 mr-2" />
+                    Logout
+                  </Button>
+                </>
+              ) : (
+                <Button 
+                  asChild
+                  className="w-full bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <Link to="/auth">Login / Sign Up</Link>
+                </Button>
+              )}
             </div>
           </div>
         )}
