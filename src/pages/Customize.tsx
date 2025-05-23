@@ -9,7 +9,7 @@ import { toast } from 'sonner';
 
 const Customize = () => {
   const [activeTab, setActiveTab] = useState('draw');
-  const [activeColor, setActiveColor] = useState('#9b87f5');
+  const [activeColor, setActiveColor] = useState('#000000'); // Changed default to black
   const [strokeWidth, setStrokeWidth] = useState(5);
   const [canvasImage, setCanvasImage] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -64,7 +64,7 @@ const Customize = () => {
         <div className="ink-container py-6 md:py-10">
           <h1 className="text-3xl md:text-4xl font-display text-ink-light mb-2">Customize Your Tattoo</h1>
           <p className="text-ink-light/70 max-w-2xl mb-8">
-            Draw your own design, upload an image, or modify existing artwork to create your perfect tattoo.
+            Create a unique design with our simple black and white tools, or choose from our curated templates.
           </p>
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">

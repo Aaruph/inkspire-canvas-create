@@ -1,8 +1,9 @@
-
 import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
 import { toast } from 'sonner';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Bookmark, Clock, FileImage, Trash } from 'lucide-react';
 
 interface TattooCanvasProps {
   activeColor: string;
@@ -16,6 +17,15 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
   const [isDrawing, setIsDrawing] = useState(false);
   const [prevPos, setPrevPos] = useState<{ x: number, y: number } | null>(null);
   const [canvasCtx, setCanvasCtx] = useState<CanvasRenderingContext2D | null>(null);
+  const [activeTab, setActiveTab] = useState('draw');
+
+  // Standard template designs
+  const templateDesigns = [
+    { id: 'minimal-tribal', name: 'Minimal Tribal', src: '/templates/minimal-tribal.png' },
+    { id: 'geometric', name: 'Geometric Pattern', src: '/templates/geometric.png' },
+    { id: 'flower', name: 'Simple Flower', src: '/templates/flower.png' },
+    { id: 'lettering', name: 'Custom Lettering', src: '/templates/lettering.png' },
+  ];
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -159,76 +169,152 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
     reader.readAsDataURL(file);
   };
 
+  const loadTemplateDesign = (templateSrc: string) => {
+    if (!canvasCtx || !canvasRef.current) return;
+    
+    const img = new Image();
+    img.onload = () => {
+      const canvas = canvasRef.current;
+      if (!canvas || !canvasCtx) return;
+      
+      // Center image on canvas
+      const xPos = (canvas.width - img.width) / 2;
+      const yPos = (canvas.height - img.height) / 2;
+      
+      // Clear canvas and draw image
+      canvasCtx.fillStyle = "#1A1F2C";
+      canvasCtx.fillRect(0, 0, canvas.width, canvas.height);
+      
+      // Draw image with proper dimensions
+      const scale = Math.min(
+        (canvas.width * 0.8) / img.width,
+        (canvas.height * 0.8) / img.height
+      );
+      
+      const scaledWidth = img.width * scale;
+      const scaledHeight = img.height * scale;
+      
+      const centerX = (canvas.width - scaledWidth) / 2;
+      const centerY = (canvas.height - scaledHeight) / 2;
+      
+      canvasCtx.drawImage(img, centerX, centerY, scaledWidth, scaledHeight);
+      
+      toast("Template design loaded");
+    };
+    img.src = templateSrc;
+    
+    // Fallback if template doesn't load
+    img.onerror = () => {
+      toast.error("Couldn't load template design. Please try again.");
+    };
+  };
+
   return (
     <div className="flex flex-col h-full">
-      <div className="flex flex-wrap gap-4 mb-4 p-4 bg-card rounded-lg">
-        <Button 
-          variant="outline" 
-          onClick={clearCanvas}
-          className="border-ink-accent/50 text-ink-light hover:border-ink-accent hover:bg-ink-accent/10"
-        >
-          Clear Canvas
-        </Button>
-        <div className="flex gap-2">
-          <Button
-            variant="ghost"
-            className={`w-8 h-8 p-0 rounded-full ${activeColor === '#ffffff' ? 'ring-2 ring-ink-accent' : ''}`}
-            onClick={() => onColorChange('#ffffff')}
-            style={{ backgroundColor: '#ffffff' }}
-          />
-          <Button
-            variant="ghost"
-            className={`w-8 h-8 p-0 rounded-full ${activeColor === '#9b87f5' ? 'ring-2 ring-ink-accent' : ''}`}
-            onClick={() => onColorChange('#9b87f5')}
-            style={{ backgroundColor: '#9b87f5' }}
-          />
-          <Button
-            variant="ghost"
-            className={`w-8 h-8 p-0 rounded-full ${activeColor === '#D946EF' ? 'ring-2 ring-ink-accent' : ''}`}
-            onClick={() => onColorChange('#D946EF')}
-            style={{ backgroundColor: '#D946EF' }}
-          />
-          <Button
-            variant="ghost"
-            className={`w-8 h-8 p-0 rounded-full ${activeColor === '#0EA5E9' ? 'ring-2 ring-ink-accent' : ''}`}
-            onClick={() => onColorChange('#0EA5E9')}
-            style={{ backgroundColor: '#0EA5E9' }}
-          />
-          <Button
-            variant="ghost"
-            className={`w-8 h-8 p-0 rounded-full ${activeColor === '#000000' ? 'ring-2 ring-ink-accent' : ''}`}
-            onClick={() => onColorChange('#000000')}
-            style={{ backgroundColor: '#000000' }}
-          />
-        </div>
-        <div className="flex items-center gap-2 ml-auto">
-          <span className="text-sm text-ink-light">Stroke:</span>
-          <Slider
-            value={[strokeWidth]}
-            min={1}
-            max={20}
-            step={1}
-            className="w-24"
-            onValueChange={(value) => onStrokeWidthChange(value[0])}
-          />
-        </div>
-        <div>
-          <input
-            type="file"
-            accept="image/*"
-            id="upload-image"
-            className="hidden"
-            onChange={handleFileUpload}
-          />
-          <Button
-            variant="outline"
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
+        <div className="flex flex-wrap gap-4 mb-4 p-4 bg-card rounded-lg">
+          <TabsList className="mr-4">
+            <TabsTrigger value="draw" className="data-[state=active]:bg-ink-accent data-[state=active]:text-ink-dark">
+              Draw
+            </TabsTrigger>
+            <TabsTrigger value="templates" className="data-[state=active]:bg-ink-accent data-[state=active]:text-ink-dark">
+              Templates
+            </TabsTrigger>
+          </TabsList>
+          
+          <Button 
+            variant="outline" 
+            onClick={clearCanvas}
             className="border-ink-accent/50 text-ink-light hover:border-ink-accent hover:bg-ink-accent/10"
-            onClick={() => document.getElementById('upload-image')?.click()}
           >
-            Upload Image
+            <Trash className="w-4 h-4 mr-2" />
+            Clear
           </Button>
+          
+          {activeTab === "draw" && (
+            <>
+              <div className="flex gap-2">
+                <Button
+                  variant="ghost"
+                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#ffffff' ? 'ring-2 ring-ink-accent' : ''}`}
+                  onClick={() => onColorChange('#ffffff')}
+                  style={{ backgroundColor: '#ffffff' }}
+                />
+                <Button
+                  variant="ghost"
+                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#000000' ? 'ring-2 ring-ink-accent' : ''}`}
+                  onClick={() => onColorChange('#000000')}
+                  style={{ backgroundColor: '#000000' }}
+                />
+                <Button
+                  variant="ghost"
+                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#9b87f5' ? 'ring-2 ring-ink-accent' : ''}`}
+                  onClick={() => onColorChange('#9b87f5')}
+                  style={{ backgroundColor: '#9b87f5' }}
+                />
+              </div>
+              <div className="flex items-center gap-2 ml-auto">
+                <span className="text-sm text-ink-light">Line:</span>
+                <Slider
+                  value={[strokeWidth]}
+                  min={1}
+                  max={20}
+                  step={1}
+                  className="w-24"
+                  onValueChange={(value) => onStrokeWidthChange(value[0])}
+                />
+              </div>
+              <div>
+                <input
+                  type="file"
+                  accept="image/*"
+                  id="upload-image"
+                  className="hidden"
+                  onChange={handleFileUpload}
+                />
+                <Button
+                  variant="outline"
+                  className="border-ink-accent/50 text-ink-light hover:border-ink-accent hover:bg-ink-accent/10"
+                  onClick={() => document.getElementById('upload-image')?.click()}
+                >
+                  <FileImage className="w-4 h-4 mr-2" />
+                  Upload
+                </Button>
+              </div>
+            </>
+          )}
         </div>
-      </div>
+      </Tabs>
+
+      {activeTab === "templates" && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
+          {templateDesigns.map((design) => (
+            <div 
+              key={design.id}
+              className="border border-ink-accent/30 rounded-lg p-2 hover:border-ink-accent cursor-pointer transition-all bg-card"
+              onClick={() => loadTemplateDesign(design.src)}
+            >
+              <div className="aspect-square bg-ink-dark/50 rounded flex items-center justify-center mb-2">
+                {/* In a real app, you'd have actual template images here */}
+                <div className="text-ink-light/70 text-xs text-center p-4">
+                  {design.name}
+                </div>
+              </div>
+              <Button
+                variant="ghost" 
+                className="w-full text-xs text-ink-light hover:text-ink-accent"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  loadTemplateDesign(design.src);
+                }}
+              >
+                Apply Design
+              </Button>
+            </div>
+          ))}
+        </div>
+      )}
+      
       <div className="canvas-container flex-grow relative">
         <canvas
           ref={canvasRef}
@@ -241,6 +327,20 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
           onTouchMove={draw}
           onTouchEnd={endDrawing}
         />
+      </div>
+      
+      {/* Quick Actions */}
+      <div className="flex justify-between items-center mt-4 p-2 bg-card rounded-lg">
+        <div className="text-xs text-ink-light/70">
+          <Clock className="inline-block w-3 h-3 mr-1" /> Auto-save enabled
+        </div>
+        <Button 
+          variant="ghost" 
+          className="text-xs text-ink-light hover:text-ink-accent"
+          onClick={() => toast("Design saved to favorites")}
+        >
+          <Bookmark className="w-3 h-3 mr-1" /> Save to Favorites
+        </Button>
       </div>
     </div>
   );
