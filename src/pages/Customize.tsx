@@ -1,4 +1,3 @@
-
 import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import TattooCanvas from '@/components/TattooCanvas';
@@ -9,7 +8,7 @@ import { toast } from 'sonner';
 
 const Customize = () => {
   const [activeTab, setActiveTab] = useState('draw');
-  const [activeColor, setActiveColor] = useState('#000000'); // Changed default to black
+  const [activeColor, setActiveColor] = useState('#000000'); 
   const [strokeWidth, setStrokeWidth] = useState(5);
   const [canvasImage, setCanvasImage] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
@@ -57,14 +56,17 @@ const Customize = () => {
   }, [activeTab, canvasImage]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-ink-dark">
+    <div className="min-h-screen flex flex-col bg-black">
       <Navbar />
       
       <main className="flex-grow">
         <div className="ink-container py-6 md:py-10">
-          <h1 className="text-3xl md:text-4xl font-display text-ink-light mb-2">Customize Your Tattoo</h1>
-          <p className="text-ink-light/70 max-w-2xl mb-8">
-            Create a unique design with our simple black and white tools, or choose from our curated templates.
+          <h1 className="text-4xl md:text-6xl font-display text-white mb-4 tracking-wider uppercase">
+            <span className="block">CREATE YOUR</span>
+            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">PERFECT TATTOO</span>
+          </h1>
+          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mb-8 font-medium">
+            Express yourself through ink. Design with our powerful tools or choose from curated templates.
           </p>
           
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
@@ -78,7 +80,7 @@ const Customize = () => {
             </div>
             
             {/* Right Side - Canvas/Preview Area */}
-            <div className="lg:col-span-3 bg-card rounded-lg border border-border p-4 min-h-[600px]">
+            <div className="lg:col-span-3 bg-zinc-900 rounded-lg border border-zinc-700 p-4 min-h-[600px] shadow-2xl">
               {activeTab === 'draw' && (
                 <div ref={canvasRef} className="h-full">
                   <TattooCanvas 
@@ -99,11 +101,11 @@ const Customize = () => {
               {activeTab === 'customize' && (
                 <div className="h-full flex items-center justify-center">
                   <div className="text-center max-w-md mx-auto p-8">
-                    <h3 className="text-xl font-medium text-ink-light mb-4">Advanced Customization</h3>
-                    <p className="text-ink-light/70 mb-6">
+                    <h3 className="text-2xl font-display uppercase tracking-wider text-white mb-4">Advanced Customization</h3>
+                    <p className="text-gray-400 mb-6">
                       We're working on additional customization features like filters, effects, and more advanced tools.
                     </p>
-                    <p className="text-ink-accent">
+                    <p className="text-white font-semibold">
                       Coming soon!
                     </p>
                   </div>
@@ -115,13 +117,13 @@ const Customize = () => {
       </main>
       
       {/* Simple Footer */}
-      <footer className="mt-auto border-t border-ink-accent/20 py-6">
+      <footer className="mt-auto border-t border-zinc-800 py-6">
         <div className="ink-container">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <span className="font-display text-xl text-ink-light">Inkspire</span>
+              <span className="font-display text-2xl text-white tracking-wider uppercase">Inkspire</span>
             </div>
-            <div className="text-ink-light/60 text-sm">
+            <div className="text-gray-500 text-sm">
               &copy; {new Date().getFullYear()} Inkspire. All rights reserved.
             </div>
           </div>

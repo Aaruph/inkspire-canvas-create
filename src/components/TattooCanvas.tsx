@@ -1,3 +1,4 @@
+
 import { useRef, useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Slider } from '@/components/ui/slider';
@@ -212,12 +213,12 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
   return (
     <div className="flex flex-col h-full">
       <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-        <div className="flex flex-wrap gap-4 mb-4 p-4 bg-card rounded-lg">
-          <TabsList className="mr-4">
-            <TabsTrigger value="draw" className="data-[state=active]:bg-ink-accent data-[state=active]:text-ink-dark">
+        <div className="flex flex-wrap gap-4 mb-4 p-4 bg-zinc-800 rounded-lg">
+          <TabsList className="mr-4 bg-zinc-700">
+            <TabsTrigger value="draw" className="data-[state=active]:bg-white data-[state=active]:text-black font-medium">
               Draw
             </TabsTrigger>
-            <TabsTrigger value="templates" className="data-[state=active]:bg-ink-accent data-[state=active]:text-ink-dark">
+            <TabsTrigger value="templates" className="data-[state=active]:bg-white data-[state=active]:text-black font-medium">
               Templates
             </TabsTrigger>
           </TabsList>
@@ -225,7 +226,7 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
           <Button 
             variant="outline" 
             onClick={clearCanvas}
-            className="border-ink-accent/50 text-ink-light hover:border-ink-accent hover:bg-ink-accent/10"
+            className="border-white/50 text-white hover:border-white hover:bg-white/10"
           >
             <Trash className="w-4 h-4 mr-2" />
             Clear
@@ -236,25 +237,25 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
               <div className="flex gap-2">
                 <Button
                   variant="ghost"
-                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#ffffff' ? 'ring-2 ring-ink-accent' : ''}`}
+                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#ffffff' ? 'ring-2 ring-white' : ''}`}
                   onClick={() => onColorChange('#ffffff')}
                   style={{ backgroundColor: '#ffffff' }}
                 />
                 <Button
                   variant="ghost"
-                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#000000' ? 'ring-2 ring-ink-accent' : ''}`}
+                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#000000' ? 'ring-2 ring-white' : ''}`}
                   onClick={() => onColorChange('#000000')}
                   style={{ backgroundColor: '#000000' }}
                 />
                 <Button
                   variant="ghost"
-                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#9b87f5' ? 'ring-2 ring-ink-accent' : ''}`}
-                  onClick={() => onColorChange('#9b87f5')}
-                  style={{ backgroundColor: '#9b87f5' }}
+                  className={`w-8 h-8 p-0 rounded-full ${activeColor === '#555555' ? 'ring-2 ring-white' : ''}`}
+                  onClick={() => onColorChange('#555555')}
+                  style={{ backgroundColor: '#555555' }}
                 />
               </div>
               <div className="flex items-center gap-2 ml-auto">
-                <span className="text-sm text-ink-light">Line:</span>
+                <span className="text-sm text-white font-medium">Line:</span>
                 <Slider
                   value={[strokeWidth]}
                   min={1}
@@ -274,7 +275,7 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
                 />
                 <Button
                   variant="outline"
-                  className="border-ink-accent/50 text-ink-light hover:border-ink-accent hover:bg-ink-accent/10"
+                  className="border-white/50 text-white hover:border-white hover:bg-white/10"
                   onClick={() => document.getElementById('upload-image')?.click()}
                 >
                   <FileImage className="w-4 h-4 mr-2" />
@@ -291,18 +292,17 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
           {templateDesigns.map((design) => (
             <div 
               key={design.id}
-              className="border border-ink-accent/30 rounded-lg p-2 hover:border-ink-accent cursor-pointer transition-all bg-card"
+              className="border border-white/30 rounded-lg p-2 hover:border-white cursor-pointer transition-all bg-zinc-800"
               onClick={() => loadTemplateDesign(design.src)}
             >
-              <div className="aspect-square bg-ink-dark/50 rounded flex items-center justify-center mb-2">
-                {/* In a real app, you'd have actual template images here */}
-                <div className="text-ink-light/70 text-xs text-center p-4">
+              <div className="aspect-square bg-zinc-900 rounded flex items-center justify-center mb-2">
+                <div className="text-white/70 text-xs text-center font-medium p-4">
                   {design.name}
                 </div>
               </div>
               <Button
                 variant="ghost" 
-                className="w-full text-xs text-ink-light hover:text-ink-accent"
+                className="w-full text-xs text-white hover:text-white hover:bg-white/10 uppercase tracking-wider"
                 onClick={(e) => {
                   e.stopPropagation();
                   loadTemplateDesign(design.src);
@@ -330,13 +330,13 @@ const TattooCanvas = ({ activeColor, strokeWidth, onColorChange, onStrokeWidthCh
       </div>
       
       {/* Quick Actions */}
-      <div className="flex justify-between items-center mt-4 p-2 bg-card rounded-lg">
-        <div className="text-xs text-ink-light/70">
+      <div className="flex justify-between items-center mt-4 p-2 bg-zinc-800 rounded-lg">
+        <div className="text-xs text-white/70 font-medium">
           <Clock className="inline-block w-3 h-3 mr-1" /> Auto-save enabled
         </div>
         <Button 
           variant="ghost" 
-          className="text-xs text-ink-light hover:text-ink-accent"
+          className="text-xs text-white hover:text-white hover:bg-white/10 uppercase tracking-wider"
           onClick={() => toast("Design saved to favorites")}
         >
           <Bookmark className="w-3 h-3 mr-1" /> Save to Favorites
