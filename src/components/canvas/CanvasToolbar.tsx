@@ -6,8 +6,8 @@ import ColorPicker from './ColorPicker';
 import StrokeWidthControl from './StrokeWidthControl';
 
 interface CanvasToolbarProps {
-  activeTab: string;
-  setActiveTab: (tab: string) => void;
+  activeTab: "draw" | "templates";
+  setActiveTab: React.Dispatch<React.SetStateAction<"draw" | "templates">>;
   activeColor: string;
   onColorChange: (color: string) => void;
   strokeWidth: number;
