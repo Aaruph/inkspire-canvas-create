@@ -1,4 +1,3 @@
-
 import { useRef, useState, useEffect } from 'react';
 
 interface DrawingCanvasProps {
@@ -27,8 +26,8 @@ const DrawingCanvas = ({ activeColor, strokeWidth, canvasRef }: DrawingCanvasPro
       canvas.width = container.clientWidth;
       canvas.height = container.clientHeight;
       
-      // Fill with a subtle background
-      ctx.fillStyle = "#1A1F2C";
+      // Fill with black background
+      ctx.fillStyle = "#000000";
       ctx.fillRect(0, 0, canvas.width, canvas.height);
     };
 

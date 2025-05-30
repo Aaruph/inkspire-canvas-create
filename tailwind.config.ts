@@ -63,13 +63,13 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Inkspire custom colors
+				// Black and white theme colors
 				ink: {
-					dark: '#1A1F2C',
-					light: '#F1F0FB',
-					accent: '#9b87f5',
-					accent2: '#D946EF',
-					accent3: '#0EA5E9',
+					dark: '#000000',
+					light: '#FFFFFF',
+					accent: '#FFFFFF',
+					accent2: '#CCCCCC',
+					accent3: '#999999',
 				},
 			},
 			fontFamily: {
@@ -96,10 +96,10 @@ export default {
 				},
 				'pulse-glow': {
 					'0%, 100%': { 
-						boxShadow: '0 0 0 0 rgba(155, 135, 245, 0.7)'
+						boxShadow: '0 0 0 0 rgba(255, 255, 255, 0.7)'
 					},
 					'50%': { 
-						boxShadow: '0 0 20px 5px rgba(155, 135, 245, 0.5)'
+						boxShadow: '0 0 20px 5px rgba(255, 255, 255, 0.5)'
 					}
 				}
 			},

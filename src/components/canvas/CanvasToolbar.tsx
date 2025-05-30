@@ -27,30 +27,30 @@ const CanvasToolbar = ({
   onFileUpload,
 }: CanvasToolbarProps) => {
   return (
-    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-      <div className="flex flex-wrap gap-4 mb-4 p-4 bg-zinc-800 rounded-lg">
-        <TabsList className="mr-4 bg-zinc-700">
+    <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as "draw" | "templates")} className="w-full">
+      <div className="flex flex-wrap gap-4 mb-4 p-4 bg-black rounded-lg border border-white/20">
+        <TabsList className="mr-4 bg-gray-800 border border-white/20">
           <TabsTrigger
             value="draw"
-            className="data-[state=active]:bg-white data-[state=active]:text-black font-medium"
+            className="data-[state=active]:bg-white data-[state=active]:text-black font-medium text-white"
           >
-            Draw
+            DRAW
           </TabsTrigger>
           <TabsTrigger
             value="templates"
-            className="data-[state=active]:bg-white data-[state=active]:text-black font-medium"
+            className="data-[state=active]:bg-white data-[state=active]:text-black font-medium text-white"
           >
-            Templates
+            TEMPLATES
           </TabsTrigger>
         </TabsList>
 
         <Button
           variant="outline"
           onClick={onClear}
-          className="border-white/50 text-white hover:border-white hover:bg-white/10"
+          className="border-white text-white hover:border-white hover:bg-white/10 bg-black"
         >
           <Trash className="w-4 h-4 mr-2" />
-          Clear
+          CLEAR
         </Button>
 
         {activeTab === "draw" && (
@@ -70,11 +70,11 @@ const CanvasToolbar = ({
               />
               <Button
                 variant="outline"
-                className="border-white/50 text-white hover:border-white hover:bg-white/10"
+                className="border-white text-white hover:border-white hover:bg-white/10 bg-black"
                 onClick={() => document.getElementById('upload-image')?.click()}
               >
                 <FileImage className="w-4 h-4 mr-2" />
-                Upload
+                UPLOAD
               </Button>
             </div>
           </>
