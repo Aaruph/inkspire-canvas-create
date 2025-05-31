@@ -11,6 +11,7 @@ import Designs from "./pages/Designs";
 import Artists from "./pages/Artists";
 import Booking from "./pages/Booking";
 import Auth from "./pages/Auth";
+import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
