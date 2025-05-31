@@ -74,8 +74,8 @@ const LoginForm = () => {
   return (
     <div className="space-y-6 w-full max-w-md">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-display">Welcome Back</h1>
-        <p className="text-muted-foreground">Enter your credentials to access your account</p>
+        <h1 className="text-3xl font-display text-white">WELCOME BACK</h1>
+        <p className="text-white/70">Enter your credentials to access your account</p>
       </div>
 
       <Form {...form}>
@@ -85,16 +85,16 @@ const LoginForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-white font-medium">EMAIL</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="your.email@example.com" 
                     type="email" 
                     {...field} 
-                    className="bg-ink-dark/60"
+                    className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300" />
               </FormItem>
             )}
           />
@@ -104,16 +104,16 @@ const LoginForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-white font-medium">PASSWORD</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="••••••••" 
                     type="password" 
                     {...field} 
-                    className="bg-ink-dark/60"
+                    className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300" />
               </FormItem>
             )}
           />
@@ -121,7 +121,7 @@ const LoginForm = () => {
           <div className="text-sm text-right">
             <a 
               href="#" 
-              className="text-ink-accent hover:underline"
+              className="text-white/80 hover:text-white hover:underline font-medium"
               onClick={(e) => {
                 e.preventDefault();
                 toast.info("Password reset", {
@@ -135,10 +135,10 @@ const LoginForm = () => {
             
           <Button 
             type="submit" 
-            className="w-full bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
+            className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 hover:shadow-lg hover:shadow-white/10 transition-all duration-300 rounded-lg font-medium"
             disabled={isLoading}
           >
-            {isLoading ? "Signing in..." : "Sign in"}
+            {isLoading ? "SIGNING IN..." : "SIGN IN"}
           </Button>
         </form>
       </Form>

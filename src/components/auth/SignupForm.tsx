@@ -80,8 +80,8 @@ const SignupForm = () => {
   return (
     <div className="space-y-6 w-full max-w-md">
       <div className="space-y-2 text-center">
-        <h1 className="text-3xl font-display">CREATE AN ACCOUNT</h1>
-        <p className="text-muted-foreground">Sign up to join the Inkspire community</p>
+        <h1 className="text-3xl font-display text-white">CREATE ACCOUNT</h1>
+        <p className="text-white/70">Sign up to join the Inkspire community</p>
       </div>
 
       <Form {...form}>
@@ -91,15 +91,15 @@ const SignupForm = () => {
             name="name"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Name</FormLabel>
+                <FormLabel className="text-white font-medium">NAME</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="Your full name" 
                     {...field} 
-                    className="bg-ink-dark/60"
+                    className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300" />
               </FormItem>
             )}
           />
@@ -109,16 +109,16 @@ const SignupForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel className="text-white font-medium">EMAIL</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="your.email@example.com" 
                     type="email" 
                     {...field} 
-                    className="bg-ink-dark/60"
+                    className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300" />
               </FormItem>
             )}
           />
@@ -128,16 +128,16 @@ const SignupForm = () => {
             name="password"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Password</FormLabel>
+                <FormLabel className="text-white font-medium">PASSWORD</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="••••••••" 
                     type="password" 
                     {...field} 
-                    className="bg-ink-dark/60"
+                    className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300" />
               </FormItem>
             )}
           />
@@ -147,26 +147,26 @@ const SignupForm = () => {
             name="confirmPassword"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Confirm Password</FormLabel>
+                <FormLabel className="text-white font-medium">CONFIRM PASSWORD</FormLabel>
                 <FormControl>
                   <Input 
                     placeholder="••••••••" 
                     type="password" 
                     {...field} 
-                    className="bg-ink-dark/60"
+                    className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
                 </FormControl>
-                <FormMessage />
+                <FormMessage className="text-red-300" />
               </FormItem>
             )}
           />
             
           <Button 
             type="submit" 
-            className="w-full bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
+            className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 hover:shadow-lg hover:shadow-white/10 transition-all duration-300 rounded-lg font-medium"
             disabled={isLoading}
           >
-            {isLoading ? "Creating account..." : "Create account"}
+            {isLoading ? "CREATING ACCOUNT..." : "CREATE ACCOUNT"}
           </Button>
         </form>
       </Form>
