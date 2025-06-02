@@ -8,6 +8,7 @@ import { AuthProvider } from "./hooks/useAuth";
 import Index from "./pages/Index";
 import Customize from "./pages/Customize";
 import Designs from "./pages/Designs";
+import DesignDetails from "./pages/DesignDetails";
 import Artists from "./pages/Artists";
 import Booking from "./pages/Booking";
 import Auth from "./pages/Auth";
@@ -27,9 +28,11 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/customize" element={<Customize />} />
             <Route path="/designs" element={<Designs />} />
+            <Route path="/designs/:id" element={<DesignDetails />} />
             <Route path="/artists" element={<Artists />} />
             <Route path="/booking" element={<Booking />} />
             <Route path="/auth" element={<Auth />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
