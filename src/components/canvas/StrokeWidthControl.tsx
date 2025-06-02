@@ -8,8 +8,8 @@ interface StrokeWidthControlProps {
 
 const StrokeWidthControl = ({ strokeWidth, onStrokeWidthChange }: StrokeWidthControlProps) => {
   return (
-    <div className="flex items-center gap-2">
-      <span className="text-sm text-white font-medium">Line:</span>
+    <div className="flex items-center gap-2 stroke-width-control">
+      <span className="text-sm font-medium text-foreground">Line:</span>
       <Slider
         value={[strokeWidth]}
         min={1}
