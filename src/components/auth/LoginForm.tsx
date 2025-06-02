@@ -1,6 +1,5 @@
-
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -119,18 +118,12 @@ const LoginForm = () => {
           />
 
           <div className="text-sm text-right">
-            <a 
-              href="#" 
+            <Link 
+              to="/forgot-password" 
               className="text-white/80 hover:text-white hover:underline font-medium"
-              onClick={(e) => {
-                e.preventDefault();
-                toast.info("Password reset", {
-                  description: "This feature would be implemented in a real app.",
-                });
-              }}
             >
               Forgot password?
-            </a>
+            </Link>
           </div>
             
           <Button 

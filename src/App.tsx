@@ -14,6 +14,7 @@ import Artists from "./pages/Artists";
 import ArtistProfile from "./pages/ArtistProfile";
 import Booking from "./pages/Booking";
 import Auth from "./pages/Auth";
+import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
 
@@ -36,6 +37,7 @@ const App = () => (
               <Route path="/artists/:id" element={<ArtistProfile />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/auth" element={<Auth />} />
+              <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/profile" element={<Profile />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
