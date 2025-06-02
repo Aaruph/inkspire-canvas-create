@@ -4,6 +4,7 @@ import { Link, NavLink, useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Menu, LogOut, User } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
+import ThemeToggle from '@/components/ThemeToggle';
 import { 
   DropdownMenu,
   DropdownMenuContent,
@@ -30,13 +31,13 @@ const Navbar = () => {
   };
 
   return (
-    <nav className="py-4 border-b border-ink-accent/20 bg-ink-dark/95 sticky top-0 z-50 backdrop-blur-sm">
+    <nav className="py-4 border-b border-border bg-background/95 sticky top-0 z-50 backdrop-blur-sm">
       <div className="ink-container flex justify-between items-center">
         <Link to="/" className="flex items-center space-x-2">
-          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-ink-accent to-ink-accent2 animate-pulse-glow flex items-center justify-center">
-            <span className="font-display text-ink-dark text-xl">IS</span>
+          <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-primary/80 animate-pulse-glow flex items-center justify-center">
+            <span className="font-display text-primary-foreground text-xl">IS</span>
           </div>
-          <span className="font-display text-2xl text-ink-light">Inkspire</span>
+          <span className="font-display text-2xl text-foreground">Inkspire</span>
         </Link>
 
         {/* Desktop Navigation */}
@@ -44,7 +45,7 @@ const Navbar = () => {
           <NavLink 
             to="/designs" 
             className={({ isActive }) => 
-              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-ink-accent' : 'text-ink-light hover:text-ink-accent'} link-hover`
+              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'} link-hover`
             }
           >
             Designs
@@ -52,7 +53,7 @@ const Navbar = () => {
           <NavLink 
             to="/artists" 
             className={({ isActive }) => 
-              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-ink-accent' : 'text-ink-light hover:text-ink-accent'} link-hover`
+              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'} link-hover`
             }
           >
             Artists
@@ -60,16 +61,18 @@ const Navbar = () => {
           <NavLink 
             to="/customize" 
             className={({ isActive }) => 
-              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-ink-accent' : 'text-ink-light hover:text-ink-accent'} link-hover`
+              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'} link-hover`
             }
           >
             Customize
           </NavLink>
           
+          <ThemeToggle />
+          
           {isAuthenticated ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="border-ink-accent/30 hover:border-ink-accent">
+                <Button variant="outline" className="border-border hover:border-primary">
                   <User className="h-5 w-5 mr-2" />
                   {user?.name || user?.email.split('@')[0]}
                 </Button>
@@ -93,7 +96,7 @@ const Navbar = () => {
           ) : (
             <Button 
               asChild
-              className="bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
+              className="bg-primary text-primary-foreground hover:bg-primary/90 transition-all duration-300"
             >
               <Link to="/auth">Login / Sign Up</Link>
             </Button>
@@ -101,23 +104,26 @@ const Navbar = () => {
         </div>
 
         {/* Mobile Menu Button */}
-        <Button 
-          variant="ghost" 
-          size="icon" 
-          className="md:hidden text-ink-light hover:text-ink-accent"
-          onClick={toggleMenu}
-        >
-          <Menu className="h-6 w-6" />
-        </Button>
+        <div className="md:hidden flex items-center space-x-2">
+          <ThemeToggle />
+          <Button 
+            variant="ghost" 
+            size="icon" 
+            className="text-foreground hover:text-primary"
+            onClick={toggleMenu}
+          >
+            <Menu className="h-6 w-6" />
+          </Button>
+        </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden absolute top-full left-0 right-0 bg-ink-dark border-b border-ink-accent/20 shadow-lg animate-fade-in">
+          <div className="md:hidden absolute top-full left-0 right-0 bg-background border-b border-border shadow-lg animate-fade-in">
             <div className="flex flex-col p-4 space-y-4">
               <NavLink 
                 to="/designs" 
                 className={({ isActive }) => 
-                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent/50 hover:text-accent-foreground'}`
                 }
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -126,7 +132,7 @@ const Navbar = () => {
               <NavLink 
                 to="/artists" 
                 className={({ isActive }) => 
-                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent/50 hover:text-accent-foreground'}`
                 }
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -135,7 +141,7 @@ const Navbar = () => {
               <NavLink 
                 to="/customize" 
                 className={({ isActive }) => 
-                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent/50 hover:text-accent-foreground'}`
                 }
                 onClick={() => setIsMenuOpen(false)}
               >
@@ -144,13 +150,13 @@ const Navbar = () => {
 
               {isAuthenticated ? (
                 <>
-                  <div className="border-t border-ink-accent/10 pt-4">
+                  <div className="border-t border-border pt-4">
                     <p className="px-4 text-sm text-muted-foreground">Signed in as {user?.name || user?.email}</p>
                   </div>
                   <NavLink 
                     to="/profile" 
                     className={({ isActive }) => 
-                      `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                      `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent/50 hover:text-accent-foreground'}`
                     }
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -159,7 +165,7 @@ const Navbar = () => {
                   <NavLink 
                     to="/booking" 
                     className={({ isActive }) => 
-                      `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-ink-accent/10 text-ink-accent' : 'text-ink-light hover:bg-ink-accent/5 hover:text-ink-accent'}`
+                      `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent/50 hover:text-accent-foreground'}`
                     }
                     onClick={() => setIsMenuOpen(false)}
                   >
@@ -180,7 +186,7 @@ const Navbar = () => {
               ) : (
                 <Button 
                   asChild
-                  className="w-full bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark"
+                  className="w-full bg-primary text-primary-foreground"
                   onClick={() => setIsMenuOpen(false)}
                 >
                   <Link to="/auth">Login / Sign Up</Link>
