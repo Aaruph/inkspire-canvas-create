@@ -4,6 +4,7 @@ import Navbar from '@/components/Navbar';
 import TattooCanvas from '@/components/TattooCanvas';
 import BodyPreview from '@/components/BodyPreview';
 import ToolPanel from '@/components/ToolPanel';
+import TextTattooEditor from '@/components/canvas/TextTattooEditor';
 import { Separator } from '@/components/ui/separator';
 import { toast } from 'sonner';
 
@@ -87,38 +88,52 @@ const Customize = () => {
             </div>
             
             {/* Right Side - Canvas/Preview Area */}
-            <div className="lg:col-span-3 bg-zinc-900 rounded-lg border border-zinc-700 p-4 min-h-[600px] shadow-2xl">
-              {activeTab === 'draw' && (
-                <div ref={canvasRef} className="h-full">
-                  <TattooCanvas 
-                    activeColor={activeColor}
-                    strokeWidth={strokeWidth}
-                    onColorChange={setActiveColor}
-                    onStrokeWidthChange={setStrokeWidth}
-                    onAddText={handleAddText}
-                  />
+            <div className="lg:col-span-3">
+              <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
+                {/* Canvas Area */}
+                <div className="xl:col-span-2 bg-zinc-900 rounded-lg border border-zinc-700 p-4 min-h-[600px] shadow-2xl">
+                  {activeTab === 'draw' && (
+                    <div ref={canvasRef} className="h-full">
+                      <TattooCanvas 
+                        activeColor={activeColor}
+                        strokeWidth={strokeWidth}
+                        onColorChange={setActiveColor}
+                        onStrokeWidthChange={setStrokeWidth}
+                        onAddText={handleAddText}
+                      />
+                    </div>
+                  )}
+                  
+                  {activeTab === 'preview' && (
+                    <div className="h-full">
+                      <BodyPreview canvasImage={canvasImage} />
+                    </div>
+                  )}
+                  
+                  {activeTab === 'customize' && (
+                    <div className="h-full flex items-center justify-center">
+                      <div className="text-center max-w-md mx-auto p-8">
+                        <h3 className="text-2xl font-display uppercase tracking-wider text-white mb-4">Design Canvas</h3>
+                        <p className="text-gray-400 mb-6">
+                          Your tattoo design will appear here. Use the text editor on the right to add custom text tattoos.
+                        </p>
+                        <p className="text-white font-semibold">
+                          Switch to the Draw tab to see your complete design!
+                        </p>
+                      </div>
+                    </div>
+                  )}
                 </div>
-              )}
-              
-              {activeTab === 'preview' && (
-                <div className="h-full">
-                  <BodyPreview canvasImage={canvasImage} />
-                </div>
-              )}
-              
-              {activeTab === 'customize' && (
-                <div className="h-full flex items-center justify-center">
-                  <div className="text-center max-w-md mx-auto p-8">
-                    <h3 className="text-2xl font-display uppercase tracking-wider text-white mb-4">Text Tattoo Studio</h3>
-                    <p className="text-gray-400 mb-6">
-                      Use the text editor in the left panel to create beautiful text tattoos with custom fonts and colors.
-                    </p>
-                    <p className="text-white font-semibold">
-                      Switch to the Draw tab to see your text on the canvas!
-                    </p>
+
+                {/* Text Editor Area - Only show when on customize tab */}
+                {activeTab === 'customize' && (
+                  <div className="xl:col-span-1">
+                    <div className="bg-zinc-900 rounded-lg border border-zinc-700 p-4 shadow-2xl h-full">
+                      <TextTattooEditor onAddText={handleAddText} />
+                    </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </div>
         </div>
@@ -136,7 +151,7 @@ const Customize = () => {
             </div>
           </div>
         </div>
-      </footer>
+      </div>
     </div>
   );
 };

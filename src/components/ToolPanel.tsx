@@ -3,7 +3,6 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Pencil, Image, Palette } from 'lucide-react';
 import { toast } from 'sonner';
-import TextTattooEditor from './canvas/TextTattooEditor';
 
 interface ToolPanelProps {
   onTabChange: (tab: string) => void;
@@ -12,16 +11,10 @@ interface ToolPanelProps {
   onAddText?: (text: string, font: string, color: string, size: number) => void;
 }
 
-const ToolPanel = ({ onTabChange, activeTab, onSaveDesign, onAddText }: ToolPanelProps) => {
+const ToolPanel = ({ onTabChange, activeTab, onSaveDesign }: ToolPanelProps) => {
   const handleSaveDesign = () => {
     onSaveDesign();
     toast("Design saved successfully!");
-  };
-
-  const handleAddText = (text: string, font: string, color: string, size: number) => {
-    if (onAddText) {
-      onAddText(text, font, color, size);
-    }
   };
 
   return (
@@ -69,28 +62,24 @@ const ToolPanel = ({ onTabChange, activeTab, onSaveDesign, onAddText }: ToolPane
         
         <TabsContent value="customize" className="space-y-4">
           <p className="text-gray-300 text-sm font-medium mb-4">
-            Perfect every detail! Add text tattoos with custom fonts and colors.
+            Perfect every detail! Use the text editor on the right to add custom text tattoos.
           </p>
           
-          <TextTattooEditor onAddText={handleAddText} />
-          
-          <div className="pt-4 border-t border-zinc-700">
-            <div className="grid grid-cols-2 gap-4">
-              <Button 
-                variant="outline" 
-                className="border-white text-white hover:border-white hover:bg-white/10"
-                onClick={() => toast("This feature will be available soon!")}
-              >
-                Add Filters
-              </Button>
-              <Button 
-                variant="outline" 
-                className="border-white text-white hover:border-white hover:bg-white/10"
-                onClick={() => toast("This feature will be available soon!")}
-              >
-                Adjust Rotation
-              </Button>
-            </div>
+          <div className="grid grid-cols-2 gap-4">
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:border-white hover:bg-white/10"
+              onClick={() => toast("This feature will be available soon!")}
+            >
+              Add Filters
+            </Button>
+            <Button 
+              variant="outline" 
+              className="border-white text-white hover:border-white hover:bg-white/10"
+              onClick={() => toast("This feature will be available soon!")}
+            >
+              Adjust Rotation
+            </Button>
           </div>
         </TabsContent>
       </Tabs>
