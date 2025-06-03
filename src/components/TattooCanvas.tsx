@@ -11,6 +11,7 @@ interface TattooCanvasProps {
   strokeWidth: number;
   onColorChange: (color: string) => void;
   onStrokeWidthChange: (width: number) => void;
+  onAddText?: (text: string, font: string, color: string, size: number) => void;
 }
 
 const TattooCanvas = ({
@@ -18,6 +19,7 @@ const TattooCanvas = ({
   strokeWidth,
   onColorChange,
   onStrokeWidthChange,
+  onAddText,
 }: TattooCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeTab, setActiveTab] = useState<"draw" | "templates">("draw");
@@ -107,6 +109,32 @@ const TattooCanvas = ({
     img.onerror = () => {
       toast.error("Couldn't load template design. Please try again.");
     };
+  };
+
+  const handleAddText = (text: string, font: string, color: string, size: number) => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+    
+    // Set text properties
+    ctx.font = `${size}px ${font}`;
+    ctx.fillStyle = color;
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    
+    // Draw text at center of canvas
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+    
+    ctx.fillText(text, centerX, centerY);
+    
+    if (onAddText) {
+      onAddText(text, font, color, size);
+    }
+    
+    toast("Text added to canvas");
   };
 
   return (
