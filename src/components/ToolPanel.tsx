@@ -1,7 +1,7 @@
 
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Pencil, Image, Palette } from 'lucide-react';
+import { Pencil, Eye, Palette, Save } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface ToolPanelProps {
@@ -18,77 +18,73 @@ const ToolPanel = ({ onTabChange, activeTab, onSaveDesign }: ToolPanelProps) => 
   };
 
   return (
-    <div className="bg-zinc-900 rounded-lg border border-zinc-700 p-4 shadow-lg">
+    <div className="space-y-6">
       <Tabs 
         value={activeTab} 
         onValueChange={onTabChange}
         className="w-full"
       >
-        <TabsList className="grid grid-cols-3 mb-4 bg-zinc-800">
+        <TabsList className="grid grid-cols-3 w-full bg-zinc-800 p-1">
           <TabsTrigger 
             value="draw" 
-            className="data-[state=active]:bg-white data-[state=active]:text-black"
+            className="data-[state=active]:bg-white data-[state=active]:text-black text-gray-300 transition-all duration-200"
           >
             <Pencil className="w-4 h-4 mr-2" />
             Draw
           </TabsTrigger>
           <TabsTrigger 
             value="preview" 
-            className="data-[state=active]:bg-white data-[state=active]:text-black"
+            className="data-[state=active]:bg-white data-[state=active]:text-black text-gray-300 transition-all duration-200"
           >
-            <Image className="w-4 h-4 mr-2" />
+            <Eye className="w-4 h-4 mr-2" />
             Preview
           </TabsTrigger>
           <TabsTrigger 
             value="customize" 
-            className="data-[state=active]:bg-white data-[state=active]:text-black"
+            className="data-[state=active]:bg-white data-[state=active]:text-black text-gray-300 transition-all duration-200"
           >
             <Palette className="w-4 h-4 mr-2" />
-            Customize
+            Text
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="draw" className="space-y-4">
-          <p className="text-gray-300 text-sm font-medium">
-            Unleash your creativity! Sketch your design using our professional-grade drawing tools.
-          </p>
-        </TabsContent>
-        
-        <TabsContent value="preview" className="space-y-4">
-          <p className="text-gray-300 text-sm font-medium">
-            See your tattoo come to life! Preview your design on different body parts and adjust as needed.
-          </p>
-        </TabsContent>
-        
-        <TabsContent value="customize" className="space-y-4">
-          <p className="text-gray-300 text-sm font-medium mb-4">
-            Perfect every detail! Use the text editor on the right to add custom text tattoos.
-          </p>
+        <div className="mt-4 space-y-4">
+          <TabsContent value="draw" className="space-y-4 mt-0">
+            <div className="space-y-3">
+              <h3 className="text-white font-medium">Drawing Mode</h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Unleash your creativity! Use professional drawing tools to sketch your unique tattoo design.
+              </p>
+            </div>
+          </TabsContent>
           
-          <div className="grid grid-cols-2 gap-4">
-            <Button 
-              variant="outline" 
-              className="border-white text-white hover:border-white hover:bg-white/10"
-              onClick={() => toast("This feature will be available soon!")}
-            >
-              Add Filters
-            </Button>
-            <Button 
-              variant="outline" 
-              className="border-white text-white hover:border-white hover:bg-white/10"
-              onClick={() => toast("This feature will be available soon!")}
-            >
-              Adjust Rotation
-            </Button>
-          </div>
-        </TabsContent>
+          <TabsContent value="preview" className="space-y-4 mt-0">
+            <div className="space-y-3">
+              <h3 className="text-white font-medium">Preview Mode</h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                See your tattoo on a human model. Click to position your design exactly where you want it.
+              </p>
+            </div>
+          </TabsContent>
+          
+          <TabsContent value="customize" className="space-y-4 mt-0">
+            <div className="space-y-3">
+              <h3 className="text-white font-medium">Text Editor</h3>
+              <p className="text-gray-300 text-sm leading-relaxed">
+                Create custom text tattoos with various fonts and colors. Perfect your typography on the right panel.
+              </p>
+            </div>
+          </TabsContent>
+        </div>
       </Tabs>
 
-      <div className="pt-4 border-t border-zinc-700 mt-4">
+      {/* Save Design Button */}
+      <div className="pt-4 border-t border-zinc-700">
         <Button 
-          className="w-full bg-white text-black hover:bg-gray-200 hover:shadow-lg transition-all duration-300 font-bold uppercase tracking-wider"
+          className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-medium py-2.5 transition-all duration-200"
           onClick={handleSaveDesign}
         >
+          <Save className="w-4 h-4 mr-2" />
           Save Design
         </Button>
       </div>

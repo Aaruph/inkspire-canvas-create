@@ -2,10 +2,10 @@
 import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import TattooCanvas from '@/components/TattooCanvas';
-import BodyPreview from '@/components/BodyPreview';
+import HumanDoll from '@/components/canvas/HumanDoll';
 import ToolPanel from '@/components/ToolPanel';
 import TextTattooEditor from '@/components/canvas/TextTattooEditor';
-import { Separator } from '@/components/ui/separator';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 
 const Customize = () => {
@@ -18,7 +18,6 @@ const Customize = () => {
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
     
-    // If switching to preview tab, capture the canvas
     if (tab === 'preview') {
       captureCanvas();
     }
@@ -39,21 +38,15 @@ const Customize = () => {
 
   const handleSaveDesign = () => {
     captureCanvas();
-    
-    // In a real app, this would save to a database or local storage
-    // For now we just show a toast notification
     toast.success('Your design has been saved!');
   };
 
   const handleAddText = (text: string, font: string, color: string, size: number) => {
     console.log('Text added:', { text, font, color, size });
-    // This will be handled by the TattooCanvas component
   };
 
-  // Handle initial canvas capture if starting directly on preview tab
   useEffect(() => {
     if (activeTab === 'preview' && !canvasImage) {
-      // Small delay to ensure canvas is rendered
       const timer = setTimeout(() => {
         captureCanvas();
       }, 500);
@@ -67,31 +60,44 @@ const Customize = () => {
       <Navbar />
       
       <main className="flex-grow">
-        <div className="ink-container py-6 md:py-10">
-          <h1 className="text-4xl md:text-6xl font-display text-white mb-4 tracking-wider uppercase">
-            <span className="block">CREATE YOUR</span>
-            <span className="block bg-clip-text text-transparent bg-gradient-to-r from-white via-white to-gray-400">PERFECT TATTOO</span>
-          </h1>
-          <p className="text-lg md:text-xl text-gray-400 max-w-2xl mb-8 font-medium">
-            Express yourself through ink. Design with our powerful tools, add custom text, or choose from curated templates.
-          </p>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
-            {/* Left Side - Tool Panel */}
-            <div className="lg:col-span-1">
-              <ToolPanel 
-                onTabChange={handleTabChange} 
-                activeTab={activeTab}
-                onSaveDesign={handleSaveDesign}
-                onAddText={handleAddText}
-              />
+        <div className="ink-container py-8">
+          {/* Header Section */}
+          <div className="text-center mb-8">
+            <h1 className="text-4xl md:text-5xl font-display text-white mb-3 tracking-wider uppercase">
+              Create Your Perfect Tattoo
+            </h1>
+            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+              Design with precision, preview with confidence
+            </p>
+          </div>
+
+          {/* Main Content Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            {/* Left Sidebar - Tool Panel */}
+            <div className="lg:col-span-3">
+              <Card className="bg-zinc-900 border-zinc-700 h-fit">
+                <CardContent className="p-4">
+                  <ToolPanel 
+                    onTabChange={handleTabChange} 
+                    activeTab={activeTab}
+                    onSaveDesign={handleSaveDesign}
+                    onAddText={handleAddText}
+                  />
+                </CardContent>
+              </Card>
             </div>
             
-            {/* Right Side - Canvas/Preview Area */}
-            <div className="lg:col-span-3">
-              <div className="grid grid-cols-1 xl:grid-cols-3 gap-6">
-                {/* Canvas Area */}
-                <div className="xl:col-span-2 bg-zinc-900 rounded-lg border border-zinc-700 p-4 min-h-[600px] shadow-2xl">
+            {/* Main Canvas Area */}
+            <div className="lg:col-span-6">
+              <Card className="bg-zinc-900 border-zinc-700 h-[600px]">
+                <CardHeader className="pb-3">
+                  <CardTitle className="text-white text-lg">
+                    {activeTab === 'draw' && 'Drawing Canvas'}
+                    {activeTab === 'preview' && 'Tattoo Preview'}
+                    {activeTab === 'customize' && 'Design Studio'}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent className="p-4 pt-0 h-[calc(100%-80px)]">
                   {activeTab === 'draw' && (
                     <div ref={canvasRef} className="h-full">
                       <TattooCanvas 
@@ -106,40 +112,50 @@ const Customize = () => {
                   
                   {activeTab === 'preview' && (
                     <div className="h-full">
-                      <BodyPreview canvasImage={canvasImage} />
+                      <HumanDoll canvasImage={canvasImage} />
                     </div>
                   )}
                   
                   {activeTab === 'customize' && (
                     <div className="h-full flex items-center justify-center">
                       <div className="text-center max-w-md mx-auto p-8">
-                        <h3 className="text-2xl font-display uppercase tracking-wider text-white mb-4">Design Canvas</h3>
-                        <p className="text-gray-400 mb-6">
-                          Your tattoo design will appear here. Use the text editor on the right to add custom text tattoos.
+                        <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
+                          <span className="text-2xl">✨</span>
+                        </div>
+                        <h3 className="text-xl font-display uppercase tracking-wider text-white mb-3">
+                          Customize Mode
+                        </h3>
+                        <p className="text-gray-400 mb-4">
+                          Use the text editor on the right to add custom text tattoos with different fonts and colors.
                         </p>
-                        <p className="text-white font-semibold">
-                          Switch to the Draw tab to see your complete design!
+                        <p className="text-sm text-gray-500">
+                          Switch to Draw to see your complete design
                         </p>
                       </div>
                     </div>
                   )}
-                </div>
-
-                {/* Text Editor Area - Only show when on customize tab */}
-                {activeTab === 'customize' && (
-                  <div className="xl:col-span-1">
-                    <div className="bg-zinc-900 rounded-lg border border-zinc-700 p-4 shadow-2xl h-full">
-                      <TextTattooEditor onAddText={handleAddText} />
-                    </div>
-                  </div>
-                )}
-              </div>
+                </CardContent>
+              </Card>
             </div>
+
+            {/* Right Sidebar - Text Editor (only on customize tab) */}
+            {activeTab === 'customize' && (
+              <div className="lg:col-span-3">
+                <Card className="bg-zinc-900 border-zinc-700 h-fit">
+                  <CardHeader className="pb-3">
+                    <CardTitle className="text-white text-lg">Text Editor</CardTitle>
+                  </CardHeader>
+                  <CardContent className="p-4 pt-0">
+                    <TextTattooEditor onAddText={handleAddText} />
+                  </CardContent>
+                </Card>
+              </div>
+            )}
           </div>
         </div>
       </main>
       
-      {/* Simple Footer */}
+      {/* Footer */}
       <footer className="mt-auto border-t border-zinc-800 py-6">
         <div className="ink-container">
           <div className="flex flex-col md:flex-row justify-between items-center">

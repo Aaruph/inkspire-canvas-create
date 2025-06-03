@@ -31,95 +31,95 @@ const TextTattooEditor = ({ onAddText }: TextTattooEditorProps) => {
   };
 
   return (
-    <div className="space-y-6 p-4 bg-card rounded-lg border">
-      <div className="flex items-center gap-2 mb-4">
-        <Type className="w-5 h-5" />
-        <h3 className="text-lg font-semibold">Text Tattoo Editor</h3>
+    <div className="space-y-6">
+      {/* Text Input */}
+      <div className="space-y-2">
+        <Label htmlFor="text-input" className="text-sm font-medium text-gray-200">
+          Text Content
+        </Label>
+        <Input
+          id="text-input"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Enter your tattoo text..."
+          className="bg-zinc-800 border-zinc-600 text-white placeholder-gray-400 focus:border-purple-500"
+        />
       </div>
 
-      <div className="space-y-4">
-        <div>
-          <Label htmlFor="text-input" className="text-sm font-medium">
-            Text Content
-          </Label>
-          <Input
-            id="text-input"
-            value={text}
-            onChange={(e) => setText(e.target.value)}
-            placeholder="Enter your tattoo text..."
-            className="mt-1"
+      {/* Font Selection */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium text-gray-200">
+          Font Family
+        </Label>
+        <FontSelector 
+          selectedFont={selectedFont} 
+          onFontChange={setSelectedFont} 
+        />
+      </div>
+
+      {/* Color Selection */}
+      <div className="space-y-2">
+        <Label className="text-sm font-medium text-gray-200">
+          Text Color
+        </Label>
+        <div className="flex items-center gap-3">
+          <ColorPicker 
+            activeColor={textColor} 
+            onColorChange={setTextColor} 
+          />
+          <input
+            type="color"
+            value={textColor}
+            onChange={(e) => setTextColor(e.target.value)}
+            className="w-12 h-8 rounded border border-zinc-600 cursor-pointer bg-zinc-800"
           />
         </div>
+      </div>
 
-        <div>
-          <Label className="text-sm font-medium mb-2 block">
-            Font Family
-          </Label>
-          <FontSelector 
-            selectedFont={selectedFont} 
-            onFontChange={setSelectedFont} 
-          />
+      {/* Font Size */}
+      <div className="space-y-3">
+        <div className="flex justify-between items-center">
+          <Label className="text-sm font-medium text-gray-200">Font Size</Label>
+          <span className="text-sm text-gray-400">{fontSize}px</span>
         </div>
-
-        <div>
-          <Label className="text-sm font-medium mb-2 block">
-            Text Color
-          </Label>
-          <div className="flex items-center gap-4">
-            <ColorPicker 
-              activeColor={textColor} 
-              onColorChange={setTextColor} 
-            />
-            <input
-              type="color"
-              value={textColor}
-              onChange={(e) => setTextColor(e.target.value)}
-              className="w-12 h-8 rounded border border-border cursor-pointer"
-            />
-          </div>
-        </div>
-
-        <div>
-          <Label className="text-sm font-medium mb-2 block">
-            Font Size: {fontSize}px
-          </Label>
-          <Slider
-            value={[fontSize]}
-            min={16}
-            max={120}
-            step={2}
-            className="w-full"
-            onValueChange={(value) => setFontSize(value[0])}
-          />
-        </div>
-
-        <div className="p-4 bg-muted rounded-lg border-2 border-dashed">
-          <div className="text-center">
-            <p className="text-sm text-muted-foreground mb-2">Preview:</p>
-            <div
-              style={{
-                fontFamily: selectedFont,
-                color: textColor,
-                fontSize: Math.min(fontSize, 32) + 'px',
-                fontWeight: selectedFont.includes('bold') ? 'bold' : 'normal',
-                fontStyle: selectedFont.includes('italic') ? 'italic' : 'normal'
-              }}
-              className="break-words"
-            >
-              {text || 'Your text here...'}
-            </div>
-          </div>
-        </div>
-
-        <Button
-          onClick={handleAddText}
+        <Slider
+          value={[fontSize]}
+          min={16}
+          max={120}
+          step={2}
           className="w-full"
-          disabled={!text.trim()}
-        >
-          <Plus className="w-4 h-4 mr-2" />
-          Add Text to Canvas
-        </Button>
+          onValueChange={(value) => setFontSize(value[0])}
+        />
       </div>
+
+      {/* Preview */}
+      <div className="p-4 bg-zinc-800 rounded-lg border border-zinc-700">
+        <div className="text-center">
+          <p className="text-sm text-gray-400 mb-3">Preview:</p>
+          <div
+            style={{
+              fontFamily: selectedFont,
+              color: textColor,
+              fontSize: Math.min(fontSize, 32) + 'px',
+              fontWeight: selectedFont.includes('bold') ? 'bold' : 'normal',
+              fontStyle: selectedFont.includes('italic') ? 'italic' : 'normal'
+            }}
+            className="break-words min-h-[40px] flex items-center justify-center"
+          >
+            {text || 'Your text here...'}
+          </div>
+        </div>
+      </div>
+
+      {/* Add Button */}
+      <Button
+        onClick={handleAddText}
+        className="w-full bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white font-medium py-2.5"
+        disabled={!text.trim()}
+      >
+        <Plus className="w-4 h-4 mr-2" />
+        Add Text to Canvas
+      </Button>
     </div>
   );
 };
