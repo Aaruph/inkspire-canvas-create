@@ -151,7 +151,7 @@ const Customize = () => {
             </div>
           </div>
         </div>
-      </div>
+      </footer>
     </div>
   );
 };
