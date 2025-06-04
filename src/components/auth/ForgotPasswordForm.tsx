@@ -24,7 +24,7 @@ const emailSchema = z.object({
 });
 
 const otpSchema = z.object({
-  otp: z.string().min(6, { message: "Please enter the 6-digit code" }),
+  otp: z.string().length(6, { message: "Please enter the complete 6-digit code" }),
 });
 
 const passwordSchema = z.object({
@@ -47,6 +47,7 @@ const ForgotPasswordForm = () => {
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [otpValue, setOtpValue] = useState("");
   const navigate = useNavigate();
 
   const emailForm = useForm<EmailFormValues>({
@@ -139,10 +140,26 @@ const ForgotPasswordForm = () => {
       toast.success("Code resent!", {
         description: `We've sent a new code to ${email}`,
       });
+      setOtpValue("");
+      otpForm.reset();
     } catch (error) {
       toast.error("Failed to resend code");
     } finally {
       setIsLoading(false);
+    }
+  };
+
+  const handleOTPChange = (value: string) => {
+    console.log("OTP value changing to:", value);
+    setOtpValue(value);
+    otpForm.setValue("otp", value);
+    
+    // Auto-submit when 6 digits are entered
+    if (value.length === 6) {
+      console.log("Auto-submitting OTP:", value);
+      setTimeout(() => {
+        otpForm.handleSubmit(handleOTPSubmit)();
+      }, 300);
     }
   };
 
@@ -208,17 +225,8 @@ const ForgotPasswordForm = () => {
                       <FormControl>
                         <InputOTP 
                           maxLength={6} 
-                          value={field.value}
-                          onChange={(value) => {
-                            field.onChange(value);
-                            console.log("OTP value changed:", value);
-                            // Auto-submit when 6 digits are entered
-                            if (value.length === 6) {
-                              setTimeout(() => {
-                                otpForm.handleSubmit(handleOTPSubmit)();
-                              }, 100);
-                            }
-                          }}
+                          value={otpValue}
+                          onChange={handleOTPChange}
                           className="gap-2"
                         >
                           <InputOTPGroup className="gap-2">
@@ -239,7 +247,7 @@ const ForgotPasswordForm = () => {
                 <Button 
                   type="submit" 
                   className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 hover:shadow-lg hover:shadow-white/10 transition-all duration-300 rounded-lg font-medium"
-                  disabled={isLoading || otpForm.watch("otp")?.length !== 6}
+                  disabled={isLoading || otpValue.length !== 6}
                 >
                   {isLoading ? "VERIFYING..." : "VERIFY CODE"}
                 </Button>
@@ -261,7 +269,11 @@ const ForgotPasswordForm = () => {
             <Button 
               variant="link" 
               className="p-0 text-white/80 hover:text-white font-medium flex items-center justify-center w-full"
-              onClick={() => setStep("email")}
+              onClick={() => {
+                setStep("email");
+                setOtpValue("");
+                otpForm.reset();
+              }}
             >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to Email
@@ -348,6 +360,18 @@ const ForgotPasswordForm = () => {
                 </Button>
               </form>
             </Form>
+
+            <Button 
+              variant="link" 
+              className="p-0 text-white/80 hover:text-white font-medium flex items-center justify-center w-full"
+              onClick={() => {
+                setStep("otp");
+                passwordForm.reset();
+              }}
+            >
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Verification
+            </Button>
           </div>
         );
 
