@@ -73,8 +73,8 @@ const Customize = () => {
 
           {/* Main Content Grid - Updated layout for bigger drawing section */}
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            {/* Left Sidebar - Tool Panel */}
-            <div className="lg:col-span-2">
+            {/* Left Sidebar - Tool Panel - Increased from col-span-2 to col-span-3 for better spacing */}
+            <div className="lg:col-span-3">
               <Card className="bg-zinc-900 border-zinc-700 h-fit">
                 <CardContent className="p-4">
                   <ToolPanel 
@@ -87,8 +87,8 @@ const Customize = () => {
               </Card>
             </div>
             
-            {/* Main Canvas Area - Increased from col-span-6 to col-span-8 */}
-            <div className="lg:col-span-8">
+            {/* Main Canvas Area - Reduced from col-span-8 to col-span-7 to accommodate larger sidebar */}
+            <div className="lg:col-span-7">
               <Card className="bg-zinc-900 border-zinc-700 h-[700px]">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-white text-lg">
@@ -138,7 +138,7 @@ const Customize = () => {
               </Card>
             </div>
 
-            {/* Right Sidebar - Text Editor (only on customize tab) - Reduced from col-span-3 to col-span-2 */}
+            {/* Right Sidebar - Text Editor (only on customize tab) */}
             {activeTab === 'customize' && (
               <div className="lg:col-span-2">
                 <Card className="bg-zinc-900 border-zinc-700 h-fit">
