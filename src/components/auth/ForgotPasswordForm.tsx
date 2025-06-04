@@ -90,8 +90,10 @@ const ForgotPasswordForm = () => {
       // Simulate OTP verification
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
+      console.log("OTP submitted:", values.otp);
+      
       // Demo: accept any 6-digit code
-      if (values.otp.length === 6) {
+      if (values.otp && values.otp.length === 6) {
         toast.success("Code verified successfully!");
         setStep("password");
       } else {
@@ -206,16 +208,26 @@ const ForgotPasswordForm = () => {
                       <FormControl>
                         <InputOTP 
                           maxLength={6} 
-                          {...field}
+                          value={field.value}
+                          onChange={(value) => {
+                            field.onChange(value);
+                            console.log("OTP value changed:", value);
+                            // Auto-submit when 6 digits are entered
+                            if (value.length === 6) {
+                              setTimeout(() => {
+                                otpForm.handleSubmit(handleOTPSubmit)();
+                              }, 100);
+                            }
+                          }}
                           className="gap-2"
                         >
                           <InputOTPGroup className="gap-2">
-                            <InputOTPSlot index={0} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg" />
-                            <InputOTPSlot index={1} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg" />
-                            <InputOTPSlot index={2} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg" />
-                            <InputOTPSlot index={3} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg" />
-                            <InputOTPSlot index={4} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg" />
-                            <InputOTPSlot index={5} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg" />
+                            <InputOTPSlot index={0} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg focus:border-white/50 focus:ring-2 focus:ring-white/20" />
+                            <InputOTPSlot index={1} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg focus:border-white/50 focus:ring-2 focus:ring-white/20" />
+                            <InputOTPSlot index={2} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg focus:border-white/50 focus:ring-2 focus:ring-white/20" />
+                            <InputOTPSlot index={3} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg focus:border-white/50 focus:ring-2 focus:ring-white/20" />
+                            <InputOTPSlot index={4} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg focus:border-white/50 focus:ring-2 focus:ring-white/20" />
+                            <InputOTPSlot index={5} className="bg-white/10 backdrop-blur-sm border border-white/30 text-white w-12 h-12 text-lg focus:border-white/50 focus:ring-2 focus:ring-white/20" />
                           </InputOTPGroup>
                         </InputOTP>
                       </FormControl>
@@ -227,7 +239,7 @@ const ForgotPasswordForm = () => {
                 <Button 
                   type="submit" 
                   className="w-full bg-white/20 backdrop-blur-sm text-white border border-white/30 hover:bg-white/30 hover:shadow-lg hover:shadow-white/10 transition-all duration-300 rounded-lg font-medium"
-                  disabled={isLoading}
+                  disabled={isLoading || otpForm.watch("otp")?.length !== 6}
                 >
                   {isLoading ? "VERIFYING..." : "VERIFY CODE"}
                 </Button>
