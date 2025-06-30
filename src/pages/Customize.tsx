@@ -56,17 +56,17 @@ const Customize = () => {
   }, [activeTab, canvasImage]);
 
   return (
-    <div className="min-h-screen flex flex-col bg-black">
+    <div className="min-h-screen flex flex-col bg-background">
       <Navbar />
       
       <main className="flex-grow">
         <div className="ink-container py-8">
           {/* Header Section */}
           <div className="text-center mb-8">
-            <h1 className="text-4xl md:text-5xl font-display text-white mb-3 tracking-wider uppercase">
+            <h1 className="text-4xl md:text-5xl font-display text-foreground mb-3 tracking-wider uppercase">
               Create Your Perfect Tattoo
             </h1>
-            <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
               Design with precision, preview with confidence
             </p>
           </div>
@@ -75,7 +75,7 @@ const Customize = () => {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
             {/* Left Sidebar - Tool Panel - Increased from col-span-2 to col-span-3 for better spacing */}
             <div className="lg:col-span-3">
-              <Card className="bg-zinc-900 border-zinc-700 h-fit">
+              <Card className="bg-card border-border h-fit">
                 <CardContent className="p-4">
                   <ToolPanel 
                     onTabChange={handleTabChange} 
@@ -89,9 +89,9 @@ const Customize = () => {
             
             {/* Main Canvas Area - Reduced from col-span-8 to col-span-7 to accommodate larger sidebar */}
             <div className="lg:col-span-7">
-              <Card className="bg-zinc-900 border-zinc-700 h-[700px]">
+              <Card className="bg-card border-border h-[700px]">
                 <CardHeader className="pb-3">
-                  <CardTitle className="text-white text-lg">
+                  <CardTitle className="text-foreground text-lg">
                     {activeTab === 'draw' && 'Drawing Canvas'}
                     {activeTab === 'preview' && 'Tattoo Preview'}
                     {activeTab === 'customize' && 'Design Studio'}
@@ -122,13 +122,13 @@ const Customize = () => {
                         <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
                           <span className="text-2xl">✨</span>
                         </div>
-                        <h3 className="text-xl font-display uppercase tracking-wider text-white mb-3">
+                        <h3 className="text-xl font-display uppercase tracking-wider text-foreground mb-3">
                           Customize Mode
                         </h3>
-                        <p className="text-gray-400 mb-4">
+                        <p className="text-muted-foreground mb-4">
                           Use the text editor on the right to add custom text tattoos with different fonts and colors.
                         </p>
-                        <p className="text-sm text-gray-500">
+                        <p className="text-sm text-muted-foreground">
                           Switch to Draw to see your complete design
                         </p>
                       </div>
@@ -141,9 +141,9 @@ const Customize = () => {
             {/* Right Sidebar - Text Editor (only on customize tab) */}
             {activeTab === 'customize' && (
               <div className="lg:col-span-2">
-                <Card className="bg-zinc-900 border-zinc-700 h-fit">
+                <Card className="bg-card border-border h-fit">
                   <CardHeader className="pb-3">
-                    <CardTitle className="text-white text-lg">Text Editor</CardTitle>
+                    <CardTitle className="text-foreground text-lg">Text Editor</CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
                     <TextTattooEditor onAddText={handleAddText} />
@@ -156,13 +156,13 @@ const Customize = () => {
       </main>
       
       {/* Footer */}
-      <footer className="mt-auto border-t border-zinc-800 py-6">
+      <footer className="mt-auto border-t border-border py-6">
         <div className="ink-container">
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex items-center space-x-2 mb-4 md:mb-0">
-              <span className="font-display text-2xl text-white tracking-wider uppercase">Inkspire</span>
+              <span className="font-display text-2xl text-foreground tracking-wider uppercase">Inkspire</span>
             </div>
-            <div className="text-gray-500 text-sm">
+            <div className="text-muted-foreground text-sm">
               &copy; {new Date().getFullYear()} Inkspire. All rights reserved.
             </div>
           </div>
