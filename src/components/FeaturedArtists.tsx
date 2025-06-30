@@ -1,4 +1,3 @@
-
 import { ArrowRight, Star } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
@@ -13,6 +12,7 @@ const artists = [
     location: "New York",
     rating: 4.9,
     availability: "Available May 30",
+    profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 2,
@@ -21,6 +21,7 @@ const artists = [
     location: "Los Angeles",
     rating: 4.8,
     availability: "Available June 5",
+    profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 3,
@@ -29,6 +30,7 @@ const artists = [
     location: "San Francisco",
     rating: 4.7,
     availability: "Available May 25",
+    profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
   }
 ];
 
@@ -59,10 +61,12 @@ const FeaturedArtists = () => {
               key={artist.id} 
               className="bg-card rounded-lg overflow-hidden hover:shadow-xl hover:shadow-ink-accent/10 transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="h-48 bg-gradient-to-tr from-ink-accent/20 via-ink-accent2/10 to-ink-accent3/10 flex items-center justify-center">
-                <div className="w-24 h-24 rounded-full bg-secondary flex items-center justify-center border-2 border-ink-accent/50">
-                  <span className="text-ink-light/70 text-lg font-display">{artist.name.split(' ').map(n => n[0]).join('')}</span>
-                </div>
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src={artist.profileImage}
+                  alt={artist.name}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-6">
                 <div className="flex justify-between items-start">

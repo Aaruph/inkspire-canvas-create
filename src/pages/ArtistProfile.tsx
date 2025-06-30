@@ -1,4 +1,3 @@
-
 import { useParams, Link } from 'react-router-dom';
 import Navbar from '@/components/Navbar';
 import { Button } from '@/components/ui/button';
@@ -17,18 +16,19 @@ const artistsData = [
     rating: 4.9,
     reviewCount: 124,
     availability: "Available May 30",
+    profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
     bio: "Specializing in geometric and blackwork designs with 8 years of experience creating unique, personalized pieces. My work focuses on clean lines, mathematical precision, and bold visual impact.",
     phone: "+1 (555) 123-4567",
     email: "alex@inkspire.com",
     instagram: "@alexthompsonink",
     certifications: ["Licensed Tattoo Artist - NY", "Bloodborne Pathogen Certified", "CPR Certified"],
     portfolio: [
-      { id: 1, title: "Geometric Wolf", category: "Geometric", image: "geometric-wolf-1" },
-      { id: 2, title: "Sacred Geometry Mandala", category: "Geometric", image: "mandala-1" },
-      { id: 3, title: "Minimalist Tree", category: "Fine Line", image: "tree-1" },
-      { id: 4, title: "Abstract Blackwork", category: "Blackwork", image: "abstract-1" },
-      { id: 5, title: "Geometric Mountains", category: "Geometric", image: "mountains-1" },
-      { id: 6, title: "Fine Line Portrait", category: "Fine Line", image: "portrait-1" },
+      { id: 1, title: "Geometric Wolf", category: "Geometric", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
+      { id: 2, title: "Sacred Geometry Mandala", category: "Geometric", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
+      { id: 3, title: "Minimalist Tree", category: "Fine Line", image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center" },
+      { id: 4, title: "Abstract Blackwork", category: "Blackwork", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
+      { id: 5, title: "Geometric Mountains", category: "Geometric", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 6, title: "Fine Line Portrait", category: "Fine Line", image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=400&fit=crop&crop=center" },
     ],
     testimonials: [
       { name: "Sarah M.", rating: 5, text: "Alex created the most amazing geometric piece for me. The precision and attention to detail is incredible!" },
@@ -45,18 +45,19 @@ const artistsData = [
     rating: 4.8,
     reviewCount: 167,
     availability: "Available June 5",
+    profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
     bio: "With over a decade of experience in traditional Japanese tattooing, I create bold, vibrant pieces that tell a story. My work honors traditional techniques while adding modern flair.",
     phone: "+1 (555) 234-5678",
     email: "jordan@inkspire.com",
     instagram: "@jordanleeink",
     certifications: ["Licensed Tattoo Artist - CA", "Japanese Traditional Certified", "Color Theory Specialist"],
     portfolio: [
-      { id: 1, title: "Koi Dragon", category: "Japanese", image: "koi-dragon-1" },
-      { id: 2, title: "Cherry Blossom Sleeve", category: "Japanese", image: "cherry-blossom-1" },
-      { id: 3, title: "Traditional Rose", category: "Traditional", image: "rose-1" },
-      { id: 4, title: "Samurai Mask", category: "Japanese", image: "samurai-1" },
-      { id: 5, title: "Ocean Wave", category: "Japanese", image: "wave-1" },
-      { id: 6, title: "Phoenix Rising", category: "Color", image: "phoenix-1" },
+      { id: 1, title: "Koi Dragon", category: "Japanese", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 2, title: "Cherry Blossom Sleeve", category: "Japanese", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
+      { id: 3, title: "Traditional Rose", category: "Traditional", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
+      { id: 4, title: "Samurai Mask", category: "Japanese", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
+      { id: 5, title: "Ocean Wave", category: "Japanese", image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center" },
+      { id: 6, title: "Phoenix Rising", category: "Color", image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=400&fit=crop&crop=center" },
     ],
     testimonials: [
       { name: "David K.", rating: 5, text: "Jordan's Japanese style is authentic and beautiful. The colors are vibrant and the details are perfect." },
@@ -109,8 +110,12 @@ const ArtistProfile = () => {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             <div className="lg:col-span-2">
               <div className="flex items-start gap-6">
-                <div className="w-32 h-32 rounded-full bg-gradient-to-tr from-ink-accent/20 via-ink-accent2/10 to-ink-accent3/10 flex items-center justify-center border-2 border-ink-accent/50">
-                  <span className="text-ink-light text-4xl font-display">{artist.name.split(' ').map(n => n[0]).join('')}</span>
+                <div className="w-32 h-32 rounded-full overflow-hidden border-2 border-ink-accent/50">
+                  <img 
+                    src={artist.profileImage} 
+                    alt={artist.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
                 <div className="flex-1">
@@ -197,10 +202,12 @@ const ArtistProfile = () => {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {artist.portfolio.map((piece) => (
                 <Card key={piece.id} className="bg-card border-border overflow-hidden hover:shadow-lg hover:shadow-ink-accent/10 transition-all duration-300">
-                  <div className="aspect-square bg-ink-accent/5 flex items-center justify-center">
-                    <div className="w-full h-full border-2 border-dashed border-ink-accent/30 rounded flex items-center justify-center">
-                      <span className="text-ink-light/70 text-center">{piece.image}</span>
-                    </div>
+                  <div className="aspect-square overflow-hidden">
+                    <img 
+                      src={piece.image}
+                      alt={piece.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <CardContent className="p-4">
                     <h3 className="text-lg font-medium text-ink-light mb-1">{piece.title}</h3>
