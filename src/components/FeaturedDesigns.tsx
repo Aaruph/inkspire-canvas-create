@@ -3,31 +3,31 @@ import { ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
-// Placeholder design data
+// Design data with tattoo images
 const designs = [
   {
     id: 1,
     title: "Geometric Wolf",
     category: "Geometric",
-    preview: "geometric-pattern",
+    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=300&h=300&fit=crop&crop=center",
   },
   {
     id: 2,
     title: "Floral Sleeve",
     category: "Nature",
-    preview: "floral-pattern",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=300&h=300&fit=crop&crop=center",
   },
   {
     id: 3,
     title: "Japanese Dragon",
     category: "Traditional",
-    preview: "dragon-pattern",
+    image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=300&h=300&fit=crop&crop=center",
   },
   {
     id: 4,
     title: "Minimalist Wave",
     category: "Minimalist",
-    preview: "wave-pattern",
+    image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=300&h=300&fit=crop&crop=center",
   }
 ];
 
@@ -58,10 +58,12 @@ const FeaturedDesigns = () => {
               key={design.id} 
               className="bg-card rounded-lg overflow-hidden hover:shadow-xl hover:shadow-ink-accent/10 transition-all duration-300 transform hover:-translate-y-1"
             >
-              <div className="h-48 bg-gradient-to-tr from-ink-accent/30 via-ink-accent2/20 to-ink-accent3/20 flex items-center justify-center">
-                <div className={`w-32 h-32 rounded-full border-2 border-ink-accent/50 flex items-center justify-center`}>
-                  <span className="text-ink-accent/70">{design.preview}</span>
-                </div>
+              <div className="h-48 overflow-hidden">
+                <img 
+                  src={design.image}
+                  alt={design.title}
+                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                />
               </div>
               <div className="p-4">
                 <span className="text-xs text-ink-accent uppercase tracking-wider">{design.category}</span>

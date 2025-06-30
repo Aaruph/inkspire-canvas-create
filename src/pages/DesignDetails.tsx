@@ -5,7 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { ArrowLeft, Heart, Share2, Download } from 'lucide-react';
 
-// Mock design data (in a real app, this would come from an API)
+// Mock design data with tattoo images
 const designsData = [
   {
     id: '1',
@@ -19,7 +19,7 @@ const designsData = [
     placement: "Forearm, Shoulder, Back",
     timeEstimate: "2-3 hours",
     difficulty: "Intermediate",
-    preview: "geometric-wolf-pattern",
+    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=600&h=600&fit=crop&crop=center",
   },
   {
     id: '2',
@@ -33,7 +33,7 @@ const designsData = [
     placement: "Full Arm",
     timeEstimate: "8-12 hours (multiple sessions)",
     difficulty: "Advanced",
-    preview: "floral-sleeve-pattern",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=600&h=600&fit=crop&crop=center",
   },
   {
     id: '3',
@@ -47,7 +47,7 @@ const designsData = [
     placement: "Back, Chest, Thigh",
     timeEstimate: "6-8 hours",
     difficulty: "Advanced",
-    preview: "japanese-dragon-pattern",
+    image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=600&h=600&fit=crop&crop=center",
   },
   {
     id: '4',
@@ -61,7 +61,7 @@ const designsData = [
     placement: "Wrist, Ankle, Behind Ear",
     timeEstimate: "1-2 hours",
     difficulty: "Beginner",
-    preview: "minimalist-wave-pattern",
+    image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=600&h=600&fit=crop&crop=center",
   },
 ];
 
@@ -106,10 +106,12 @@ const DesignDetails = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {/* Design Preview */}
             <div className="space-y-4">
-              <div className="aspect-square bg-white/5 border border-white/20 rounded-lg flex items-center justify-center p-8">
-                <div className="w-full h-full border-2 border-dashed border-white/30 rounded-lg flex items-center justify-center">
-                  <span className="text-white/70 text-center">{design.preview}</span>
-                </div>
+              <div className="aspect-square bg-white/5 border border-white/20 rounded-lg overflow-hidden">
+                <img 
+                  src={design.image}
+                  alt={design.title}
+                  className="w-full h-full object-cover"
+                />
               </div>
               
               {/* Action Buttons */}

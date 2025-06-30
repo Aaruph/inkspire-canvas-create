@@ -43,11 +43,13 @@ const Hero = () => {
               <div className="absolute top-[-50px] right-[-50px] w-[200px] h-[200px] rounded-full bg-ink-accent/30 filter blur-3xl"></div>
               <div className="absolute bottom-[-30px] left-[-30px] w-[150px] h-[150px] rounded-full bg-ink-accent2/30 filter blur-3xl"></div>
               
-              {/* Placeholder for tattoo image - in a real app, we'd use an actual image */}
+              {/* Featured Tattoo Image */}
               <div className="relative z-10 max-w-[80%] p-8">
-                <div className="w-full h-[250px] border-2 border-dashed border-ink-accent/50 rounded-lg flex items-center justify-center">
-                  <span className="text-ink-accent/70 text-lg">Featured Tattoo Design</span>
-                </div>
+                <img 
+                  src="https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=300&h=300&fit=crop&crop=center"
+                  alt="Featured tattoo design"
+                  className="w-full h-[250px] object-cover rounded-lg border-2 border-ink-accent/50 shadow-lg"
+                />
               </div>
             </div>
           </div>

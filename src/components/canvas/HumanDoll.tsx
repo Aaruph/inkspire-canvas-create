@@ -47,8 +47,17 @@ const HumanDoll = ({ canvasImage, onPlacementChange }: HumanDollProps) => {
       onMouseUp={handleMouseUp}
       onMouseLeave={handleMouseUp}
     >
+      {/* Background tattoo reference image */}
+      <div className="absolute inset-0 opacity-20">
+        <img 
+          src="https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=600&fit=crop&crop=center"
+          alt="Body reference"
+          className="w-full h-full object-cover"
+        />
+      </div>
+      
       {/* Human Silhouette */}
-      <div className="relative">
+      <div className="relative z-10">
         <svg 
           width="200" 
           height="400" 

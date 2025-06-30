@@ -8,7 +8,7 @@ import { Badge } from '@/components/ui/badge';
 import { Search, LayoutGrid, LayoutList } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Placeholder design data
+// Design data with tattoo images
 const designs = [
   {
     id: 1,
@@ -16,7 +16,7 @@ const designs = [
     artist: "Alex Thompson",
     category: "Geometric",
     tags: ["Animals", "Geometric", "Black & Gray"],
-    preview: "wolf-pattern",
+    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 2,
@@ -24,7 +24,7 @@ const designs = [
     artist: "Jordan Lee",
     category: "Nature",
     tags: ["Floral", "Color", "Sleeve"],
-    preview: "floral-pattern",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 3,
@@ -32,7 +32,7 @@ const designs = [
     artist: "Morgan Chen",
     category: "Traditional",
     tags: ["Asian", "Traditional", "Color"],
-    preview: "dragon-pattern",
+    image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 4,
@@ -40,7 +40,7 @@ const designs = [
     artist: "Alex Thompson",
     category: "Minimalist",
     tags: ["Simple", "Black & Gray", "Small"],
-    preview: "wave-pattern",
+    image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const designs = [
     artist: "Jordan Lee",
     category: "Abstract",
     tags: ["Geometric", "Color", "Modern"],
-    preview: "abstract-pattern",
+    image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 6,
@@ -56,7 +56,7 @@ const designs = [
     artist: "Morgan Chen",
     category: "Traditional",
     tags: ["Skull", "Floral", "Traditional"],
-    preview: "skull-pattern",
+    image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 7,
@@ -64,7 +64,7 @@ const designs = [
     artist: "Alex Thompson",
     category: "Celestial",
     tags: ["Moon", "Stars", "Black & Gray"],
-    preview: "moon-pattern",
+    image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center",
   },
   {
     id: 8,
@@ -72,7 +72,7 @@ const designs = [
     artist: "Jordan Lee",
     category: "Mythical",
     tags: ["Birds", "Fire", "Color"],
-    preview: "phoenix-pattern",
+    image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center",
   },
 ];
 
@@ -172,10 +172,12 @@ const Designs = () => {
                   key={design.id} 
                   className="bg-card rounded-lg overflow-hidden hover:shadow-xl hover:shadow-ink-accent/10 transition-all duration-300 transform hover:-translate-y-1 border border-border"
                 >
-                  <div className="h-56 bg-gradient-to-tr from-ink-accent/20 via-ink-accent2/10 to-ink-accent3/10 flex items-center justify-center p-4">
-                    <div className="h-full w-full rounded-md border-2 border-dashed border-ink-accent/30 flex items-center justify-center">
-                      <span className="text-ink-accent/70">{design.preview}</span>
-                    </div>
+                  <div className="h-56 overflow-hidden">
+                    <img 
+                      src={design.image}
+                      alt={design.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div className="p-4">
                     <div className="flex justify-between items-start">
@@ -221,10 +223,12 @@ const Designs = () => {
                   key={design.id} 
                   className="bg-card rounded-lg overflow-hidden hover:shadow-xl hover:shadow-ink-accent/10 transition-all duration-300 border border-border flex flex-col md:flex-row"
                 >
-                  <div className="w-full md:w-48 h-48 bg-gradient-to-tr from-ink-accent/20 via-ink-accent2/10 to-ink-accent3/10 flex items-center justify-center p-4 shrink-0">
-                    <div className="h-full w-full rounded-md border-2 border-dashed border-ink-accent/30 flex items-center justify-center">
-                      <span className="text-ink-accent/70">{design.preview}</span>
-                    </div>
+                  <div className="w-full md:w-48 h-48 shrink-0 overflow-hidden">
+                    <img 
+                      src={design.image}
+                      alt={design.title}
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                    />
                   </div>
                   <div className="p-4 flex-grow">
                     <div className="flex justify-between items-start">
