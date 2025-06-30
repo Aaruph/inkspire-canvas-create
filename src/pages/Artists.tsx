@@ -7,7 +7,7 @@ import { Badge } from '@/components/ui/badge';
 import { Search, Star } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-// Placeholder artist data
+// Updated artist data with profile images
 const artists = [
   {
     id: 1,
@@ -19,6 +19,7 @@ const artists = [
     reviewCount: 124,
     availability: "Available May 30",
     bio: "Specializing in geometric and blackwork designs with 8 years of experience creating unique, personalized pieces.",
+    profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 2,
@@ -30,6 +31,7 @@ const artists = [
     reviewCount: 167,
     availability: "Available June 5",
     bio: "With over a decade of experience in traditional Japanese tattooing, Jordan creates bold, vibrant pieces that tell a story.",
+    profileImage: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 3,
@@ -41,6 +43,7 @@ const artists = [
     reviewCount: 93,
     availability: "Available May 25",
     bio: "Morgan's watercolor technique creates ethereal, one-of-a-kind tattoos that flow naturally with the body's contours.",
+    profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 4,
@@ -52,6 +55,7 @@ const artists = [
     reviewCount: 145,
     availability: "Available June 15",
     bio: "Renowned for hyperrealistic portraits and detailed black and gray work that captures every nuance and emotion.",
+    profileImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 5,
@@ -63,6 +67,7 @@ const artists = [
     reviewCount: 87,
     availability: "Available May 28",
     bio: "Riley's neo-traditional style combines bold lines with vibrant colors for tattoos that pop with personality.",
+    profileImage: "https://images.unsplash.com/photo-1494790108755-2616c28ca2ca?w=200&h=200&fit=crop&crop=face",
   },
   {
     id: 6,
@@ -74,6 +79,7 @@ const artists = [
     reviewCount: 203,
     availability: "Available June 10",
     bio: "Drawing from traditional Polynesian influences, Cameron creates meaningful tribal designs with cultural significance.",
+    profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
   },
 ];
 
@@ -177,10 +183,12 @@ const Artists = () => {
                 key={artist.id} 
                 className="bg-card rounded-lg overflow-hidden hover:shadow-xl hover:shadow-ink-accent/10 transition-all duration-300 transform hover:-translate-y-1 border border-border flex flex-col"
               >
-                <div className="h-48 bg-gradient-to-tr from-ink-accent/20 via-ink-accent2/10 to-ink-accent3/10 flex items-center justify-center">
-                  <div className="w-28 h-28 rounded-full bg-secondary flex items-center justify-center border-2 border-ink-accent/50">
-                    <span className="text-ink-light text-2xl font-display">{artist.name.split(' ').map(n => n[0]).join('')}</span>
-                  </div>
+                <div className="h-48 overflow-hidden">
+                  <img 
+                    src={artist.profileImage}
+                    alt={artist.name}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
+                  />
                 </div>
                 
                 <div className="p-6 flex-grow">

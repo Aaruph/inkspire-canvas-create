@@ -5,7 +5,7 @@ import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowLeft, Star, MapPin, Clock, Award, Instagram, Facebook, Phone, Mail } from 'lucide-react';
 
-// Mock artist data with portfolio details
+// Mock artist data with portfolio details - Updated to match Artists page IDs
 const artistsData = [
   {
     id: '1',
@@ -52,7 +52,7 @@ const artistsData = [
     instagram: "@jordanleeink",
     certifications: ["Licensed Tattoo Artist - CA", "Japanese Traditional Certified", "Color Theory Specialist"],
     portfolio: [
-      { id: 1, title: "Koi Dragon", category: "Japanese", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 1, title: "Japanese Dragon", category: "Japanese", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
       { id: 2, title: "Cherry Blossom Sleeve", category: "Japanese", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
       { id: 3, title: "Traditional Rose", category: "Traditional", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
       { id: 4, title: "Samurai Mask", category: "Japanese", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
@@ -65,7 +65,122 @@ const artistsData = [
       { name: "Chris B.", rating: 4, text: "Great experience overall. The tattoo healed perfectly and looks amazing." },
     ]
   },
-  // Add more artists as needed
+  {
+    id: '3',
+    name: "Morgan Chen",
+    specialty: ["Watercolor", "Minimalist", "Abstract"],
+    experience: "5 years",
+    location: "San Francisco",
+    rating: 4.7,
+    reviewCount: 93,
+    availability: "Available May 25",
+    profileImage: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face",
+    bio: "Morgan's watercolor technique creates ethereal, one-of-a-kind tattoos that flow naturally with the body's contours.",
+    phone: "+1 (555) 345-6789",
+    email: "morgan@inkspire.com",
+    instagram: "@morganchenink",
+    certifications: ["Licensed Tattoo Artist - CA", "Watercolor Specialist", "Fine Arts Degree"],
+    portfolio: [
+      { id: 1, title: "Watercolor Bird", category: "Watercolor", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
+      { id: 2, title: "Abstract Flow", category: "Abstract", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
+      { id: 3, title: "Minimalist Mountain", category: "Minimalist", image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center" },
+      { id: 4, title: "Watercolor Flowers", category: "Watercolor", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
+      { id: 5, title: "Abstract Waves", category: "Abstract", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 6, title: "Simple Line Art", category: "Minimalist", image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=400&fit=crop&crop=center" },
+    ],
+    testimonials: [
+      { name: "Alex P.", rating: 5, text: "Morgan's watercolor style is absolutely stunning. The colors blend perfectly!" },
+      { name: "Jamie S.", rating: 5, text: "Beautiful minimalist work that captures exactly what I wanted." },
+      { name: "Taylor K.", rating: 4, text: "Great artist with a unique style. Very professional and clean studio." },
+    ]
+  },
+  {
+    id: '4',
+    name: "Taylor Reyes",
+    specialty: ["Realism", "Portrait", "Black & Gray"],
+    experience: "10 years",
+    location: "Chicago",
+    rating: 4.9,
+    reviewCount: 145,
+    availability: "Available June 15",
+    profileImage: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+    bio: "Renowned for hyperrealistic portraits and detailed black and gray work that captures every nuance and emotion.",
+    phone: "+1 (555) 456-7890",
+    email: "taylor@inkspire.com",
+    instagram: "@taylorreyesink",
+    certifications: ["Licensed Tattoo Artist - IL", "Portrait Specialist", "Realism Master Class"],
+    portfolio: [
+      { id: 1, title: "Realistic Portrait", category: "Portrait", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
+      { id: 2, title: "Black & Gray Lion", category: "Black & Gray", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
+      { id: 3, title: "Photorealistic Eye", category: "Realism", image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center" },
+      { id: 4, title: "Memorial Portrait", category: "Portrait", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
+      { id: 5, title: "Realistic Rose", category: "Realism", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 6, title: "Black & Gray Skull", category: "Black & Gray", image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=400&fit=crop&crop=center" },
+    ],
+    testimonials: [
+      { name: "Maria L.", rating: 5, text: "Taylor's realism work is incredible. The portrait looks exactly like the photo!" },
+      { name: "John D.", rating: 5, text: "Amazing detail and skill. The black and gray work is phenomenal." },
+      { name: "Sophie R.", rating: 5, text: "Professional, talented, and the result exceeded all expectations." },
+    ]
+  },
+  {
+    id: '5',
+    name: "Riley Johnson",
+    specialty: ["Neo-Traditional", "Color", "Animal"],
+    experience: "7 years",
+    location: "Austin",
+    rating: 4.6,
+    reviewCount: 87,
+    availability: "Available May 28",
+    profileImage: "https://images.unsplash.com/photo-1494790108755-2616c28ca2ca?w=400&h=400&fit=crop&crop=face",
+    bio: "Riley's neo-traditional style combines bold lines with vibrant colors for tattoos that pop with personality.",
+    phone: "+1 (555) 567-8901",
+    email: "riley@inkspire.com",
+    instagram: "@rileyjohnsonink",
+    certifications: ["Licensed Tattoo Artist - TX", "Neo-Traditional Specialist", "Color Theory Expert"],
+    portfolio: [
+      { id: 1, title: "Neo-Traditional Tiger", category: "Neo-Traditional", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
+      { id: 2, title: "Colorful Owl", category: "Color", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
+      { id: 3, title: "Wolf Portrait", category: "Animal", image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center" },
+      { id: 4, title: "Neo-Traditional Rose", category: "Neo-Traditional", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
+      { id: 5, title: "Vibrant Peacock", category: "Color", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 6, title: "Eagle Design", category: "Animal", image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=400&fit=crop&crop=center" },
+    ],
+    testimonials: [
+      { name: "Casey M.", rating: 5, text: "Riley's use of color is amazing! The neo-traditional style is perfect." },
+      { name: "Jordan P.", rating: 4, text: "Great work on my animal piece. Very detailed and vibrant." },
+      { name: "Sam T.", rating: 5, text: "Professional service and beautiful results. Highly recommend!" },
+    ]
+  },
+  {
+    id: '6',
+    name: "Cameron Park",
+    specialty: ["Tribal", "Polynesian", "Ornamental"],
+    experience: "15 years",
+    location: "Honolulu",
+    rating: 4.8,
+    reviewCount: 203,
+    availability: "Available June 10",
+    profileImage: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face",
+    bio: "Drawing from traditional Polynesian influences, Cameron creates meaningful tribal designs with cultural significance.",
+    phone: "+1 (555) 678-9012",
+    email: "cameron@inkspire.com",
+    instagram: "@cameronparkink",
+    certifications: ["Licensed Tattoo Artist - HI", "Polynesian Traditional Master", "Cultural Arts Certified"],
+    portfolio: [
+      { id: 1, title: "Maori Tribal", category: "Tribal", image: "https://images.unsplash.com/photo-1581833971358-2c8b550f87b3?w=400&h=400&fit=crop&crop=center" },
+      { id: 2, title: "Polynesian Sleeve", category: "Polynesian", image: "https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&h=400&fit=crop&crop=center" },
+      { id: 3, title: "Ornamental Mandala", category: "Ornamental", image: "https://images.unsplash.com/photo-1611501275019-9b5cda994e8d?w=400&h=400&fit=crop&crop=center" },
+      { id: 4, title: "Hawaiian Tribal", category: "Tribal", image: "https://images.unsplash.com/photo-1590736969955-71cc94901144?w=400&h=400&fit=crop&crop=center" },
+      { id: 5, title: "Samoan Pattern", category: "Polynesian", image: "https://images.unsplash.com/photo-1578662997406-0c79e66b7e12?w=400&h=400&fit=crop&crop=center" },
+      { id: 6, title: "Sacred Geometry", category: "Ornamental", image: "https://images.unsplash.com/photo-1612198188060-c7c2a3b66eae?w=400&h=400&fit=crop&crop=center" },
+    ],
+    testimonials: [
+      { name: "Kai L.", rating: 5, text: "Cameron's knowledge of Polynesian culture is deep and authentic. Beautiful work!" },
+      { name: "Leilani H.", rating: 5, text: "Respectful approach to traditional designs with modern execution." },
+      { name: "Mike S.", rating: 4, text: "Great tribal work with cultural significance. Very professional." },
+    ]
+  },
 ];
 
 const ArtistProfile = () => {
