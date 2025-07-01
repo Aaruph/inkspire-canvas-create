@@ -20,6 +20,9 @@ import NotFound from "./pages/NotFound";
 import ArtistDashboard from "./pages/artist/ArtistDashboard";
 import ArtistBookings from "./pages/artist/ArtistBookings";
 import ArtistPortfolio from "./pages/artist/ArtistPortfolio";
+import ArtistAvailability from "./pages/artist/ArtistAvailability";
+import ArtistReviews from "./pages/artist/ArtistReviews";
+import ArtistProfilePage from "./pages/artist/ArtistProfile";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +50,9 @@ const App = () => (
               <Route path="/artist" element={<ArtistDashboard />} />
               <Route path="/artist/bookings" element={<ArtistBookings />} />
               <Route path="/artist/portfolio" element={<ArtistPortfolio />} />
+              <Route path="/artist/availability" element={<ArtistAvailability />} />
+              <Route path="/artist/reviews" element={<ArtistReviews />} />
+              <Route path="/artist/profile" element={<ArtistProfilePage />} />
               
               <Route path="*" element={<NotFound />} />
             </Routes>
