@@ -2,10 +2,13 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
+type UserRole = "customer" | "artist";
+
 type User = {
   id: string;
   name?: string;
   email: string;
+  role: UserRole;
 };
 
 type AuthContextType = {

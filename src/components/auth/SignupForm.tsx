@@ -14,8 +14,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
 import { toast } from "@/components/ui/sonner";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
 
 // Form schema
 const formSchema = z.object({
@@ -23,6 +25,7 @@ const formSchema = z.object({
   email: z.string().email({ message: "Please enter a valid email address" }),
   password: z.string().min(6, { message: "Password must be at least 6 characters" }),
   confirmPassword: z.string(),
+  role: z.enum(["customer", "artist"], { message: "Please select your role" }),
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
   path: ["confirmPassword"],
@@ -33,7 +36,7 @@ type FormValues = z.infer<typeof formSchema>;
 const SignupForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setItem } = useLocalStorage();
+  const { login } = useAuth();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -42,6 +45,7 @@ const SignupForm = () => {
       email: "",
       password: "",
       confirmPassword: "",
+      role: "customer",
     },
   });
 
@@ -50,24 +54,27 @@ const SignupForm = () => {
     
     try {
       // Demo signup - in a real app, this would be an API call
-      // Simulate API request delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
-      // For demo purposes, any valid form will "register" successfully
       const mockUser = {
         id: "user-" + Date.now(),
         name: values.name,
         email: values.email,
+        role: values.role,
       };
       
-      // Store user in local storage
-      setItem('inkspireUser', JSON.stringify(mockUser));
+      login(mockUser);
       
       toast.success("Account created!", {
         description: "You have successfully registered.",
       });
       
-      navigate("/");
+      // Route based on user role
+      if (values.role === "artist") {
+        navigate("/artist");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       toast.error("Registration failed", {
         description: "There was an issue creating your account.",
@@ -117,6 +124,33 @@ const SignupForm = () => {
                     {...field} 
                     className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
+                </FormControl>
+                <FormMessage className="text-red-300" />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="role"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel className="text-white font-medium">I AM A</FormLabel>
+                <FormControl>
+                  <RadioGroup
+                    onValueChange={field.onChange}
+                    defaultValue={field.value}
+                    className="flex flex-row space-x-8"
+                  >
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="customer" id="customer" className="border-white/50 text-white" />
+                      <Label htmlFor="customer" className="text-white font-medium">CUSTOMER</Label>
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <RadioGroupItem value="artist" id="artist" className="border-white/50 text-white" />
+                      <Label htmlFor="artist" className="text-white font-medium">ARTIST</Label>
+                    </div>
+                  </RadioGroup>
                 </FormControl>
                 <FormMessage className="text-red-300" />
               </FormItem>

@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { z } from "zod";
@@ -5,7 +6,6 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import {
   Form,
   FormControl,
@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { toast } from "@/components/ui/sonner";
-import { useLocalStorage } from "@/hooks/useLocalStorage";
+import { useAuth } from "@/hooks/useAuth";
 
 // Form schema
 const formSchema = z.object({
@@ -28,7 +28,7 @@ type FormValues = z.infer<typeof formSchema>;
 const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
-  const { setItem } = useLocalStorage();
+  const { login } = useAuth();
 
   const form = useForm<FormValues>({
     resolver: zodResolver(formSchema),
@@ -43,24 +43,31 @@ const LoginForm = () => {
     
     try {
       // Demo login - in a real app, this would be an actual API call
-      // Simulate API request delay
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
-      // For demo purposes, any valid form will "log in" successfully
+      // For demo purposes, determine role based on email domain
+      const isArtist = values.email.includes("artist") || values.email.includes("@art");
+      const role = isArtist ? "artist" : "customer";
+      
       const mockUser = {
         id: "user-1",
         email: values.email,
         name: values.email.split('@')[0],
+        role: role as "customer" | "artist",
       };
       
-      // Store user in local storage
-      setItem('inkspireUser', JSON.stringify(mockUser));
+      login(mockUser);
       
       toast.success("Welcome back!", {
         description: "You have successfully logged in.",
       });
       
-      navigate("/");
+      // Route based on user role
+      if (role === "artist") {
+        navigate("/artist");
+      } else {
+        navigate("/");
+      }
     } catch (error) {
       toast.error("Login failed", {
         description: "Please check your credentials and try again.",

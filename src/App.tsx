@@ -17,6 +17,9 @@ import Auth from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
 import Profile from "./pages/Profile";
 import NotFound from "./pages/NotFound";
+import ArtistDashboard from "./pages/artist/ArtistDashboard";
+import ArtistBookings from "./pages/artist/ArtistBookings";
+import ArtistPortfolio from "./pages/artist/ArtistPortfolio";
 
 const queryClient = new QueryClient();
 
@@ -39,6 +42,12 @@ const App = () => (
               <Route path="/auth" element={<Auth />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />
               <Route path="/profile" element={<Profile />} />
+              
+              {/* Artist Routes */}
+              <Route path="/artist" element={<ArtistDashboard />} />
+              <Route path="/artist/bookings" element={<ArtistBookings />} />
+              <Route path="/artist/portfolio" element={<ArtistPortfolio />} />
+              
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
