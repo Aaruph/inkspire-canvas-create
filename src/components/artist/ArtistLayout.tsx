@@ -15,6 +15,7 @@ import {
 } from 'lucide-react';
 import { useAuth } from '@/hooks/useAuth';
 import { toast } from '@/components/ui/sonner';
+import ThemeToggle from '@/components/ThemeToggle';
 
 interface ArtistLayoutProps {
   children: React.ReactNode;
@@ -49,40 +50,48 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-black text-white">
+    <div className="min-h-screen bg-background text-foreground transition-colors duration-300">
       {/* Mobile menu button */}
-      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20 fixed top-0 left-0 right-0 z-40 bg-black">
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-sidebar-border fixed top-0 left-0 right-0 z-40 bg-background shadow-sm">
         <div className="flex items-center space-x-2">
-          <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
-            <span className="font-display text-black text-sm">IS</span>
+          <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center">
+            <span className="font-display text-primary-foreground text-sm">IS</span>
           </div>
-          <span className="font-display text-xl">Inkspire Artist</span>
+          <span className="font-display text-xl text-foreground">Inkspire Artist</span>
         </div>
-        <Button
-          variant="ghost"
-          size="sm"
-          onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-          className="text-white"
-        >
-          {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-        </Button>
+        <div className="flex items-center space-x-2">
+          <ThemeToggle />
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+            className="text-foreground"
+          >
+            {isSidebarOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </Button>
+        </div>
       </div>
 
       <div className="flex">
         {/* Fixed Sidebar */}
         <div className={`${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 border-r border-white/20 flex flex-col overflow-hidden`}>
+        } lg:translate-x-0 transition-all duration-300 ease-in-out fixed inset-y-0 left-0 z-50 w-64 bg-sidebar border-r border-sidebar-border flex flex-col overflow-hidden shadow-lg`}>
           
           {/* Logo */}
-          <div className="p-6 border-b border-white/20">
-            <div className="flex items-center space-x-2">
-              <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                <span className="font-display text-black text-xl">IS</span>
+          <div className="p-6 border-b border-sidebar-border">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-2">
+                <div className="w-10 h-10 rounded-full bg-primary flex items-center justify-center">
+                  <span className="font-display text-primary-foreground text-xl">IS</span>
+                </div>
+                <div>
+                  <span className="font-display text-xl block text-sidebar-foreground">Inkspire</span>
+                  <span className="text-sm text-muted-foreground">Artist Panel</span>
+                </div>
               </div>
-              <div>
-                <span className="font-display text-xl block">Inkspire</span>
-                <span className="text-sm text-gray-400">Artist Panel</span>
+              <div className="hidden lg:block">
+                <ThemeToggle />
               </div>
             </div>
           </div>
@@ -95,14 +104,16 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
                   <Link
                     to={item.href}
                     onClick={() => setIsSidebarOpen(false)}
-                    className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
+                    className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 font-medium group ${
                       isActive(item.href)
-                        ? 'bg-white text-black'
-                        : 'text-gray-300 hover:bg-white/10 hover:text-white'
+                        ? 'bg-sidebar-active text-sidebar-active-foreground shadow-sm'
+                        : 'text-sidebar-foreground hover:bg-sidebar-hover hover:text-sidebar-foreground'
                     }`}
                   >
-                    <item.icon className="h-5 w-5" />
-                    <span className="font-medium">{item.name}</span>
+                    <item.icon className={`h-5 w-5 transition-transform duration-200 ${
+                      isActive(item.href) ? '' : 'group-hover:scale-110'
+                    }`} />
+                    <span>{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -110,15 +121,15 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
           </nav>
 
           {/* User info and logout */}
-          <div className="p-4 border-t border-white/20">
-            <div className="mb-4">
-              <p className="text-sm text-gray-400">Signed in as</p>
-              <p className="font-medium">{user?.name || user?.email}</p>
+          <div className="p-4 border-t border-sidebar-border">
+            <div className="mb-4 p-2 rounded-lg bg-muted/50">
+              <p className="text-xs text-muted-foreground">Signed in as</p>
+              <p className="font-medium text-sidebar-foreground truncate">{user?.name || user?.email}</p>
             </div>
             <Button
               onClick={handleLogout}
               variant="ghost"
-              className="w-full justify-start text-gray-300 hover:bg-red-500/10 hover:text-red-400"
+              className="w-full justify-start text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-all duration-200"
             >
               <LogOut className="h-4 w-4 mr-2" />
               Logout
@@ -127,7 +138,7 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 lg:ml-64 pt-16 lg:pt-0">
+        <div className="flex-1 lg:ml-64 pt-16 lg:pt-0 bg-background min-h-screen">
           {children}
         </div>
       </div>
@@ -135,7 +146,7 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
       {/* Mobile sidebar overlay */}
       {isSidebarOpen && (
         <div 
-          className="lg:hidden fixed inset-0 z-40 bg-black/50"
+          className="lg:hidden fixed inset-0 z-40 bg-background/80 backdrop-blur-sm"
           onClick={() => setIsSidebarOpen(false)}
         />
       )}

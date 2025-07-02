@@ -83,47 +83,47 @@ const ArtistReviews = () => {
     <ArtistLayout>
       <div className="p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Customer Reviews</h1>
-          <p className="text-gray-400">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Customer Reviews</h1>
+          <p className="text-muted-foreground">
             See what your clients are saying about your work.
           </p>
         </div>
 
         {/* Rating Overview */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-          <Card className="bg-gray-900 border-white/20">
+          <Card className="bg-card border-border">
             <CardHeader className="text-center">
-              <CardTitle className="text-white">Overall Rating</CardTitle>
+              <CardTitle className="text-card-foreground">Overall Rating</CardTitle>
             </CardHeader>
             <CardContent className="text-center">
-              <div className="text-4xl font-bold text-white mb-2">
+              <div className="text-4xl font-bold text-card-foreground mb-2">
                 {averageRating.toFixed(1)}
               </div>
               <div className="flex justify-center mb-2">
                 {renderStars(Math.round(averageRating))}
               </div>
-              <p className="text-gray-400">{totalReviews} reviews</p>
+              <p className="text-muted-foreground">{totalReviews} reviews</p>
             </CardContent>
           </Card>
 
-          <Card className="bg-gray-900 border-white/20 lg:col-span-2">
+          <Card className="bg-card border-border lg:col-span-2">
             <CardHeader>
-              <CardTitle className="text-white">Rating Distribution</CardTitle>
+              <CardTitle className="text-card-foreground">Rating Distribution</CardTitle>
             </CardHeader>
             <CardContent>
               {[5, 4, 3, 2, 1].map((rating, index) => (
                 <div key={rating} className="flex items-center space-x-3 mb-2">
-                  <span className="text-white w-4">{rating}</span>
+                  <span className="text-foreground w-4">{rating}</span>
                   <Star className="h-4 w-4 text-yellow-400 fill-current" />
-                  <div className="flex-1 bg-gray-700 rounded-full h-2">
+                  <div className="flex-1 bg-muted rounded-full h-2">
                     <div
-                      className="bg-yellow-400 h-2 rounded-full"
+                      className="bg-yellow-400 h-2 rounded-full transition-all duration-300"
                       style={{
                         width: `${totalReviews > 0 ? (ratingDistribution[index] / totalReviews) * 100 : 0}%`
                       }}
                     />
                   </div>
-                  <span className="text-gray-400 w-8 text-right">
+                  <span className="text-muted-foreground w-8 text-right">
                     {ratingDistribution[index]}
                   </span>
                 </div>
@@ -133,42 +133,42 @@ const ArtistReviews = () => {
         </div>
 
         {/* Reviews List */}
-        <Card className="bg-gray-900 border-white/20">
+        <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-white">Recent Reviews</CardTitle>
+            <CardTitle className="text-card-foreground">Recent Reviews</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-6">
               {reviews.map((review) => (
-                <div key={review.id} className="border border-white/10 rounded-lg p-4">
+                <div key={review.id} className="border border-border rounded-lg p-4 hover:bg-muted/30 transition-colors duration-200">
                   <div className="flex items-start justify-between mb-3">
                     <div className="flex items-center space-x-3">
-                      <div className="w-10 h-10 bg-gray-700 rounded-full flex items-center justify-center">
-                        <User className="h-5 w-5 text-gray-400" />
+                      <div className="w-10 h-10 bg-muted rounded-full flex items-center justify-center">
+                        <User className="h-5 w-5 text-muted-foreground" />
                       </div>
                       <div>
                         <div className="flex items-center space-x-2">
-                          <h3 className="font-medium text-white">{review.clientName}</h3>
+                          <h3 className="font-medium text-foreground">{review.clientName}</h3>
                           {review.verified && (
-                            <Badge variant="outline" className="text-green-400 border-green-400">
+                            <Badge variant="outline" className="text-success border-success/50">
                               Verified
                             </Badge>
                           )}
                         </div>
-                        <p className="text-sm text-gray-400">{review.tattooDesign}</p>
+                        <p className="text-sm text-muted-foreground">{review.tattooDesign}</p>
                       </div>
                     </div>
                     <div className="text-right">
                       <div className="flex items-center space-x-1 mb-1">
                         {renderStars(review.rating)}
                       </div>
-                      <div className="flex items-center text-sm text-gray-400">
+                      <div className="flex items-center text-sm text-muted-foreground">
                         <Calendar className="h-3 w-3 mr-1" />
                         {new Date(review.date).toLocaleDateString()}
                       </div>
                     </div>
                   </div>
-                  <p className="text-gray-300 leading-relaxed">{review.comment}</p>
+                  <p className="text-foreground leading-relaxed">{review.comment}</p>
                 </div>
               ))}
             </div>

@@ -70,10 +70,10 @@ const ArtistDashboard = () => {
       <div className="p-6">
         {/* Welcome Section */}
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">
             Welcome back, {user?.name || 'Artist'}!
           </h1>
-          <p className="text-gray-400">
+          <p className="text-muted-foreground">
             Here's what's happening with your bookings today.
           </p>
         </div>
@@ -81,47 +81,47 @@ const ArtistDashboard = () => {
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
           {stats.map((stat) => (
-            <Card key={stat.title} className="bg-gray-900 border-white/20">
+            <Card key={stat.title} className="bg-card border-border hover:shadow-lg transition-shadow duration-200">
               <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-                <CardTitle className="text-sm font-medium text-gray-400">
+                <CardTitle className="text-sm font-medium text-muted-foreground">
                   {stat.title}
                 </CardTitle>
                 <stat.icon className={`h-4 w-4 ${stat.color}`} />
               </CardHeader>
               <CardContent>
-                <div className="text-2xl font-bold text-white">{stat.value}</div>
-                <p className="text-xs text-gray-500">{stat.description}</p>
+                <div className="text-2xl font-bold text-card-foreground">{stat.value}</div>
+                <p className="text-xs text-muted-foreground">{stat.description}</p>
               </CardContent>
             </Card>
           ))}
         </div>
 
         {/* Upcoming Bookings */}
-        <Card className="bg-gray-900 border-white/20">
+        <Card className="bg-card border-border">
           <CardHeader>
-            <CardTitle className="text-white">Upcoming Bookings</CardTitle>
+            <CardTitle className="text-card-foreground">Upcoming Bookings</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
               {upcomingBookings.map((booking) => (
                 <div
                   key={booking.id}
-                  className="flex items-center justify-between p-4 bg-black rounded-lg border border-white/10"
+                  className="flex items-center justify-between p-4 bg-muted/50 rounded-lg border border-border hover:bg-muted/70 transition-colors duration-200"
                 >
                   <div className="flex-1">
-                    <h3 className="font-medium text-white">{booking.clientName}</h3>
-                    <p className="text-sm text-gray-400">{booking.design}</p>
+                    <h3 className="font-medium text-foreground">{booking.clientName}</h3>
+                    <p className="text-sm text-muted-foreground">{booking.design}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-sm text-white">{booking.date}</p>
-                    <p className="text-sm text-gray-400">{booking.time}</p>
+                    <p className="text-sm text-foreground">{booking.date}</p>
+                    <p className="text-sm text-muted-foreground">{booking.time}</p>
                   </div>
                   <div className="ml-4">
                     <span
                       className={`px-2 py-1 rounded-full text-xs font-medium ${
                         booking.status === 'confirmed'
-                          ? 'bg-green-500/20 text-green-400'
-                          : 'bg-yellow-500/20 text-yellow-400'
+                          ? 'bg-success/20 text-success'
+                          : 'bg-warning/20 text-warning'
                       }`}
                     >
                       {booking.status.toUpperCase()}
