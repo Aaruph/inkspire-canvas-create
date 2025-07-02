@@ -51,7 +51,7 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
   return (
     <div className="min-h-screen bg-black text-white">
       {/* Mobile menu button */}
-      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20">
+      <div className="lg:hidden flex items-center justify-between p-4 border-b border-white/20 fixed top-0 left-0 right-0 z-40 bg-black">
         <div className="flex items-center space-x-2">
           <div className="w-8 h-8 rounded-full bg-white flex items-center justify-center">
             <span className="font-display text-black text-sm">IS</span>
@@ -69,10 +69,10 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
       </div>
 
       <div className="flex">
-        {/* Sidebar */}
+        {/* Fixed Sidebar */}
         <div className={`${
           isSidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } lg:translate-x-0 transition-transform duration-300 ease-in-out fixed lg:static inset-y-0 left-0 z-50 w-64 bg-gray-900 border-r border-white/20 flex flex-col`}>
+        } lg:translate-x-0 transition-transform duration-300 ease-in-out fixed inset-y-0 left-0 z-50 w-64 bg-gray-900 border-r border-white/20 flex flex-col overflow-hidden`}>
           
           {/* Logo */}
           <div className="p-6 border-b border-white/20">
@@ -127,7 +127,7 @@ const ArtistLayout = ({ children }: ArtistLayoutProps) => {
         </div>
 
         {/* Main content */}
-        <div className="flex-1 lg:ml-0">
+        <div className="flex-1 lg:ml-64 pt-16 lg:pt-0">
           {children}
         </div>
       </div>
