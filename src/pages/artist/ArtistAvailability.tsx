@@ -78,8 +78,8 @@ const ArtistAvailability = () => {
     <ArtistLayout>
       <div className="p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold text-white mb-2">Set Availability</h1>
-          <p className="text-gray-400">
+          <h1 className="text-3xl font-bold text-foreground mb-2">Set Availability</h1>
+          <p className="text-muted-foreground">
             Configure your available days and time slots for client bookings.
           </p>
         </div>
@@ -87,50 +87,50 @@ const ArtistAvailability = () => {
         <div className="grid gap-6">
           {/* Quick Stats */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
-            <Card className="bg-gray-900 border-white/20">
+            <Card className="bg-card border-border">
               <CardContent className="p-4 text-center">
-                <Calendar className="h-8 w-8 mx-auto mb-2 text-blue-400" />
-                <p className="text-2xl font-bold text-white">
+                <Calendar className="h-8 w-8 mx-auto mb-2 text-primary" />
+                <p className="text-2xl font-bold text-card-foreground">
                   {Object.values(availabilityData).filter(day => day.enabled).length}
                 </p>
-                <p className="text-sm text-gray-400">Active Days</p>
+                <p className="text-sm text-muted-foreground">Active Days</p>
               </CardContent>
             </Card>
-            <Card className="bg-gray-900 border-white/20">
+            <Card className="bg-card border-border">
               <CardContent className="p-4 text-center">
-                <Clock className="h-8 w-8 mx-auto mb-2 text-green-400" />
-                <p className="text-2xl font-bold text-white">
+                <Clock className="h-8 w-8 mx-auto mb-2 text-success" />
+                <p className="text-2xl font-bold text-card-foreground">
                   {Object.values(availabilityData).reduce((total, day) => total + day.slots.length, 0)}
                 </p>
-                <p className="text-sm text-gray-400">Total Slots</p>
+                <p className="text-sm text-muted-foreground">Total Slots</p>
               </CardContent>
             </Card>
-            <Card className="bg-gray-900 border-white/20">
+            <Card className="bg-card border-border">
               <CardContent className="p-4 text-center">
-                <div className="h-8 w-8 mx-auto mb-2 bg-purple-400 rounded-full flex items-center justify-center">
-                  <span className="text-black font-bold text-sm">%</span>
+                <div className="h-8 w-8 mx-auto mb-2 bg-accent rounded-full flex items-center justify-center">
+                  <span className="text-accent-foreground font-bold text-sm">%</span>
                 </div>
-                <p className="text-2xl font-bold text-white">85%</p>
-                <p className="text-sm text-gray-400">Booking Rate</p>
+                <p className="text-2xl font-bold text-card-foreground">85%</p>
+                <p className="text-sm text-muted-foreground">Booking Rate</p>
               </CardContent>
             </Card>
           </div>
 
           {/* Availability Configuration */}
-          <Card className="bg-gray-900 border-white/20">
+          <Card className="bg-card border-border">
             <CardHeader>
-              <CardTitle className="text-white">Weekly Schedule</CardTitle>
+              <CardTitle className="text-card-foreground">Weekly Schedule</CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               {daysOfWeek.map(({ key, label }) => (
-                <div key={key} className="border border-white/10 rounded-lg p-4">
+                <div key={key} className="border border-border rounded-lg p-4">
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <Switch
                         checked={availabilityData[key as keyof typeof availabilityData].enabled}
                         onCheckedChange={() => toggleDay(key)}
                       />
-                      <h3 className="font-semibold text-white">{label}</h3>
+                      <h3 className="font-semibold text-card-foreground">{label}</h3>
                     </div>
                     <Badge variant={availabilityData[key as keyof typeof availabilityData].enabled ? "default" : "secondary"}>
                       {availabilityData[key as keyof typeof availabilityData].enabled ? 'Active' : 'Inactive'}
@@ -142,11 +142,11 @@ const ArtistAvailability = () => {
                       {/* Current time slots */}
                       <div className="flex flex-wrap gap-2">
                         {availabilityData[key as keyof typeof availabilityData].slots.map((slot) => (
-                          <div key={slot} className="flex items-center bg-white/10 rounded-lg px-3 py-1">
-                            <span className="text-sm text-white mr-2">{slot}</span>
+                          <div key={slot} className="flex items-center bg-muted rounded-lg px-3 py-1">
+                            <span className="text-sm text-card-foreground mr-2">{slot}</span>
                             <button
                               onClick={() => removeTimeSlot(key, slot)}
-                              className="text-red-400 hover:text-red-300"
+                              className="text-destructive hover:text-destructive/80"
                             >
                               <X className="h-3 w-3" />
                             </button>
@@ -162,7 +162,7 @@ const ArtistAvailability = () => {
                             <button
                               key={time}
                               onClick={() => addTimeSlot(key, time)}
-                              className="text-xs px-2 py-1 bg-white/5 hover:bg-white/10 text-gray-300 hover:text-white rounded border border-white/20 transition-colors"
+                              className="text-xs px-2 py-1 bg-muted/50 hover:bg-muted text-muted-foreground hover:text-card-foreground rounded border border-border transition-colors"
                             >
                               + {time}
                             </button>
@@ -174,7 +174,7 @@ const ArtistAvailability = () => {
               ))}
 
               <div className="flex justify-end pt-4">
-                <Button onClick={saveAvailability} className="bg-white text-black hover:bg-gray-200">
+                <Button onClick={saveAvailability} className="bg-primary text-primary-foreground hover:bg-primary/90">
                   Save Availability
                 </Button>
               </div>

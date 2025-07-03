@@ -104,18 +104,18 @@ const ArtistBookings = () => {
     <ArtistLayout>
       <div className="p-6">
         <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-white">Bookings</h1>
-          <p className="text-gray-400">
+          <h1 className="text-3xl font-bold mb-2 text-foreground">Bookings</h1>
+          <p className="text-muted-foreground">
             Manage your appointment requests and confirmed bookings.
           </p>
         </div>
 
         <div className="space-y-6">
           {bookings.map((booking) => (
-            <Card key={booking.id} className="bg-gray-900 border-white/20">
+            <Card key={booking.id} className="bg-card border-border">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle className="text-white flex items-center space-x-2">
+                  <CardTitle className="text-card-foreground flex items-center space-x-2">
                     <User className="h-5 w-5" />
                     <span>{booking.clientName}</span>
                   </CardTitle>
@@ -128,23 +128,23 @@ const ArtistBookings = () => {
               <CardContent>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <div className="flex items-center space-x-2 text-gray-300">
+                    <div className="flex items-center space-x-2 text-muted-foreground">
                       <Calendar className="h-4 w-4" />
                       <span>{booking.date} at {booking.time}</span>
                     </div>
-                    <div className="flex items-center space-x-2 text-gray-300">
+                    <div className="flex items-center space-x-2 text-muted-foreground">
                       <MapPin className="h-4 w-4" />
                       <span>{booking.design} on {booking.location}</span>
                     </div>
-                    <div className="text-gray-400 text-sm">
+                    <div className="text-muted-foreground text-sm">
                       <strong>Email:</strong> {booking.clientEmail}
                     </div>
                   </div>
                   
                   <div className="space-y-3">
                     <div>
-                      <h4 className="text-white font-medium mb-1">Client Notes:</h4>
-                      <p className="text-gray-400 text-sm">{booking.notes}</p>
+                      <h4 className="text-card-foreground font-medium mb-1">Client Notes:</h4>
+                      <p className="text-muted-foreground text-sm">{booking.notes}</p>
                     </div>
                     
                     {booking.status === 'pending' && (
@@ -152,7 +152,7 @@ const ArtistBookings = () => {
                         <Button
                           size="sm"
                           onClick={() => handleStatusChange(booking.id, 'confirmed')}
-                          className="bg-green-600 hover:bg-green-700 text-white"
+                          className="bg-success hover:bg-success/90 text-success-foreground"
                         >
                           <CheckCircle className="h-4 w-4 mr-1" />
                           Accept
@@ -161,7 +161,7 @@ const ArtistBookings = () => {
                           size="sm"
                           variant="outline"
                           onClick={() => handleStatusChange(booking.id, 'rejected')}
-                          className="border-red-500 text-red-400 hover:bg-red-500/10"
+                          className="border-destructive text-destructive hover:bg-destructive/10"
                         >
                           <XCircle className="h-4 w-4 mr-1" />
                           Reject

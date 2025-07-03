@@ -90,15 +90,15 @@ const ArtistProfile = () => {
       <div className="p-6">
         <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-3xl font-bold text-white mb-2">Artist Profile</h1>
-            <p className="text-gray-400">
+            <h1 className="text-3xl font-bold text-foreground mb-2">Artist Profile</h1>
+            <p className="text-muted-foreground">
               Manage your profile information and portfolio details.
             </p>
           </div>
           <Button
             onClick={() => setIsEditing(!isEditing)}
             variant="outline"
-            className="text-white border-white/20"
+            className="text-foreground border-border"
           >
             <Edit className="h-4 w-4 mr-2" />
             {isEditing ? 'Cancel' : 'Edit Profile'}
@@ -107,35 +107,35 @@ const ArtistProfile = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           {/* Profile Card */}
-          <Card className="bg-gray-900 border-white/20">
+          <Card className="bg-card border-border">
             <CardContent className="p-6 text-center">
               <div className="relative mb-4">
-                <div className="w-24 h-24 mx-auto bg-gray-700 rounded-full flex items-center justify-center relative">
-                  <User className="h-12 w-12 text-gray-400" />
+                <div className="w-24 h-24 mx-auto bg-muted rounded-full flex items-center justify-center relative">
+                  <User className="h-12 w-12 text-muted-foreground" />
                   {isEditing && (
-                    <button className="absolute bottom-0 right-0 bg-white text-black rounded-full p-1">
+                    <button className="absolute bottom-0 right-0 bg-primary text-primary-foreground rounded-full p-1">
                       <Camera className="h-3 w-3" />
                     </button>
                   )}
                 </div>
               </div>
-              <h2 className="text-xl font-bold text-white mb-2">{profileData.name}</h2>
-              <p className="text-gray-400 mb-4">{profileData.email}</p>
+              <h2 className="text-xl font-bold text-card-foreground mb-2">{profileData.name}</h2>
+              <p className="text-muted-foreground mb-4">{profileData.email}</p>
               
               <div className="space-y-2 text-sm">
-                <div className="flex items-center justify-center text-gray-300">
+                <div className="flex items-center justify-center text-muted-foreground">
                   <MapPin className="h-4 w-4 mr-2" />
                   {profileData.location}
                 </div>
-                <div className="flex items-center justify-center text-gray-300">
+                <div className="flex items-center justify-center text-muted-foreground">
                   <Phone className="h-4 w-4 mr-2" />
                   {profileData.phone}
                 </div>
               </div>
 
-              <div className="mt-4 pt-4 border-t border-white/10">
-                <p className="text-sm text-gray-400 mb-2">Experience</p>
-                <Badge className="bg-white/20 text-white">
+              <div className="mt-4 pt-4 border-t border-border">
+                <p className="text-sm text-muted-foreground mb-2">Experience</p>
+                <Badge className="bg-secondary text-secondary-foreground">
                   {profileData.experience}
                 </Badge>
               </div>
@@ -145,82 +145,82 @@ const ArtistProfile = () => {
           {/* Profile Details */}
           <div className="lg:col-span-2 space-y-6">
             {/* Basic Information */}
-            <Card className="bg-gray-900 border-white/20">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white">Basic Information</CardTitle>
+                <CardTitle className="text-card-foreground">Basic Information</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label className="text-white">Full Name</Label>
+                    <Label className="text-card-foreground">Full Name</Label>
                     {isEditing ? (
                       <Input
                         value={profileData.name}
                         onChange={(e) => handleInputChange('name', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.name}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.name}</p>
                     )}
                   </div>
                   <div>
-                    <Label className="text-white">Email</Label>
+                    <Label className="text-card-foreground">Email</Label>
                     {isEditing ? (
                       <Input
                         value={profileData.email}
                         onChange={(e) => handleInputChange('email', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.email}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.email}</p>
                     )}
                   </div>
                   <div>
-                    <Label className="text-white">Phone</Label>
+                    <Label className="text-card-foreground">Phone</Label>
                     {isEditing ? (
                       <Input
                         value={profileData.phone}
                         onChange={(e) => handleInputChange('phone', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.phone}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.phone}</p>
                     )}
                   </div>
                   <div>
-                    <Label className="text-white">Location</Label>
+                    <Label className="text-card-foreground">Location</Label>
                     {isEditing ? (
                       <Input
                         value={profileData.location}
                         onChange={(e) => handleInputChange('location', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.location}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.location}</p>
                     )}
                   </div>
                 </div>
                 
                 <div>
-                  <Label className="text-white">Bio</Label>
+                  <Label className="text-card-foreground">Bio</Label>
                   {isEditing ? (
                     <Textarea
                       value={profileData.bio}
                       onChange={(e) => handleInputChange('bio', e.target.value)}
-                      className="bg-white/10 border-white/20 text-white mt-1"
+                      className="bg-background border-border text-foreground mt-1"
                       rows={4}
                     />
                   ) : (
-                    <p className="text-gray-300 mt-1 leading-relaxed">{profileData.bio}</p>
+                    <p className="text-muted-foreground mt-1 leading-relaxed">{profileData.bio}</p>
                   )}
                 </div>
               </CardContent>
             </Card>
 
             {/* Specialties */}
-            <Card className="bg-gray-900 border-white/20">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white">Specialties</CardTitle>
+                <CardTitle className="text-card-foreground">Specialties</CardTitle>
               </CardHeader>
               <CardContent>
                 {isEditing ? (
@@ -230,13 +230,13 @@ const ArtistProfile = () => {
                         <Input
                           value={specialty}
                           onChange={(e) => handleSpecialtyChange(index, e.target.value)}
-                          className="bg-white/10 border-white/20 text-white"
+                          className="bg-background border-border text-foreground"
                         />
                         <Button
                           size="sm"
                           variant="outline"
                           onClick={() => removeSpecialty(index)}
-                          className="text-red-400 border-red-400 hover:bg-red-400/10"
+                          className="text-destructive border-destructive hover:bg-destructive/10"
                         >
                           Remove
                         </Button>
@@ -246,7 +246,7 @@ const ArtistProfile = () => {
                       size="sm"
                       variant="outline"
                       onClick={addSpecialty}
-                      className="text-white border-white/20"
+                      className="text-foreground border-border"
                     >
                       Add Specialty
                     </Button>
@@ -254,7 +254,7 @@ const ArtistProfile = () => {
                 ) : (
                   <div className="flex flex-wrap gap-2">
                     {profileData.specialties.map((specialty, index) => (
-                      <Badge key={index} variant="outline" className="text-white border-white/20">
+                      <Badge key={index} variant="outline" className="text-foreground border-border">
                         {specialty}
                       </Badge>
                     ))}
@@ -264,14 +264,14 @@ const ArtistProfile = () => {
             </Card>
 
             {/* Social Media */}
-            <Card className="bg-gray-900 border-white/20">
+            <Card className="bg-card border-border">
               <CardHeader>
-                <CardTitle className="text-white">Social Media</CardTitle>
+                <CardTitle className="text-card-foreground">Social Media</CardTitle>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <Label className="text-white flex items-center">
+                    <Label className="text-card-foreground flex items-center">
                       <Instagram className="h-4 w-4 mr-2" />
                       Instagram
                     </Label>
@@ -279,14 +279,14 @@ const ArtistProfile = () => {
                       <Input
                         value={profileData.instagram}
                         onChange={(e) => handleInputChange('instagram', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.instagram}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.instagram}</p>
                     )}
                   </div>
                   <div>
-                    <Label className="text-white flex items-center">
+                    <Label className="text-card-foreground flex items-center">
                       <Facebook className="h-4 w-4 mr-2" />
                       Facebook
                     </Label>
@@ -294,14 +294,14 @@ const ArtistProfile = () => {
                       <Input
                         value={profileData.facebook}
                         onChange={(e) => handleInputChange('facebook', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.facebook}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.facebook}</p>
                     )}
                   </div>
                   <div>
-                    <Label className="text-white flex items-center">
+                    <Label className="text-card-foreground flex items-center">
                       <Twitter className="h-4 w-4 mr-2" />
                       Twitter
                     </Label>
@@ -309,10 +309,10 @@ const ArtistProfile = () => {
                       <Input
                         value={profileData.twitter}
                         onChange={(e) => handleInputChange('twitter', e.target.value)}
-                        className="bg-white/10 border-white/20 text-white"
+                        className="bg-background border-border text-foreground"
                       />
                     ) : (
-                      <p className="text-gray-300 mt-1">{profileData.twitter}</p>
+                      <p className="text-muted-foreground mt-1">{profileData.twitter}</p>
                     )}
                   </div>
                 </div>
@@ -321,10 +321,10 @@ const ArtistProfile = () => {
 
             {isEditing && (
               <div className="flex justify-end space-x-4">
-                <Button variant="outline" onClick={handleCancel} className="text-white border-white/20">
+                <Button variant="outline" onClick={handleCancel} className="text-foreground border-border">
                   Cancel
                 </Button>
-                <Button onClick={handleSave} className="bg-white text-black hover:bg-gray-200">
+                <Button onClick={handleSave} className="bg-primary text-primary-foreground hover:bg-primary/90">
                   <Save className="h-4 w-4 mr-2" />
                   Save Changes
                 </Button>
