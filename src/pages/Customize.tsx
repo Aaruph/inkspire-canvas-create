@@ -3,6 +3,7 @@ import { useState, useRef, useEffect } from 'react';
 import Navbar from '@/components/Navbar';
 import TattooCanvas from '@/components/TattooCanvas';
 import HumanDoll from '@/components/canvas/HumanDoll';
+import BodyViews from '@/components/canvas/BodyViews';
 import ToolPanel from '@/components/ToolPanel';
 import TextTattooEditor from '@/components/canvas/TextTattooEditor';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -14,6 +15,12 @@ const Customize = () => {
   const [strokeWidth, setStrokeWidth] = useState(5);
   const [canvasImage, setCanvasImage] = useState<string | null>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
+  
+  // Preview controls
+  const [currentView, setCurrentView] = useState<'front' | 'back' | 'arm' | 'leg'>('front');
+  const [previewZoom, setPreviewZoom] = useState(1);
+  const [previewRotation, setPreviewRotation] = useState(0);
+  const [tattooPosition, setTattooPosition] = useState({ x: 50, y: 50 });
 
   const handleTabChange = (tab: string) => {
     setActiveTab(tab);
@@ -54,6 +61,13 @@ const Customize = () => {
       return () => clearTimeout(timer);
     }
   }, [activeTab, canvasImage]);
+
+  const handleResetPosition = () => {
+    setTattooPosition({ x: 50, y: 50 });
+    setPreviewRotation(0);
+    setPreviewZoom(1);
+    toast("Position reset to center");
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-background">
@@ -112,7 +126,13 @@ const Customize = () => {
                   
                   {activeTab === 'preview' && (
                     <div className="h-full">
-                      <HumanDoll canvasImage={canvasImage} />
+                      <HumanDoll 
+                        canvasImage={canvasImage}
+                        onPlacementChange={(x, y) => setTattooPosition({ x, y })}
+                        currentView={currentView}
+                        zoom={previewZoom}
+                        rotation={previewRotation}
+                      />
                     </div>
                   )}
                   
@@ -138,7 +158,21 @@ const Customize = () => {
               </Card>
             </div>
 
-            {/* Right Sidebar - Text Editor (only on customize tab) */}
+            {/* Right Sidebar - Body Views for Preview or Text Editor for Customize */}
+            {activeTab === 'preview' && (
+              <div className="lg:col-span-2">
+                <BodyViews
+                  currentView={currentView}
+                  onViewChange={setCurrentView}
+                  zoom={previewZoom}
+                  onZoomChange={setPreviewZoom}
+                  rotation={previewRotation}
+                  onRotationChange={setPreviewRotation}
+                  onResetPosition={handleResetPosition}
+                />
+              </div>
+            )}
+            
             {activeTab === 'customize' && (
               <div className="lg:col-span-2">
                 <Card className="bg-card border-border h-fit">
