@@ -5,7 +5,7 @@ import TattooCanvas from '@/components/TattooCanvas';
 import HumanDoll from '@/components/canvas/HumanDoll';
 import BodyViews from '@/components/canvas/BodyViews';
 import ToolPanel from '@/components/ToolPanel';
-import TextTattooEditor from '@/components/canvas/TextTattooEditor';
+import AdvancedTextEditor from '@/components/canvas/AdvancedTextEditor';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { toast } from 'sonner';
 
@@ -180,7 +180,7 @@ const Customize = () => {
                     <CardTitle className="text-foreground text-lg">Text Editor</CardTitle>
                   </CardHeader>
                   <CardContent className="p-4 pt-0">
-                    <TextTattooEditor onAddText={handleAddText} />
+                    <AdvancedTextEditor onAddText={handleAddText} />
                   </CardContent>
                 </Card>
               </div>
