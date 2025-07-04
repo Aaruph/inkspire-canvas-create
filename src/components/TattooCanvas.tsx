@@ -1,10 +1,12 @@
 
-import { useRef, useState } from 'react';
+import { useRef, useState, useCallback } from 'react';
 import { toast } from 'sonner';
 import CanvasToolbar from './canvas/CanvasToolbar';
 import TemplateGallery from './canvas/TemplateGallery';
 import DrawingCanvas from './canvas/DrawingCanvas';
 import QuickActions from './canvas/QuickActions';
+import AdvancedCanvasTools from './canvas/AdvancedCanvasTools';
+import ColorPalette from './canvas/ColorPalette';
 
 interface TattooCanvasProps {
   activeColor: string;
@@ -23,6 +25,9 @@ const TattooCanvas = ({
 }: TattooCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [activeTab, setActiveTab] = useState<"draw" | "templates">("draw");
+  const [zoom, setZoom] = useState(1);
+  const [canvasHistory, setCanvasHistory] = useState<ImageData[]>([]);
+  const [historyIndex, setHistoryIndex] = useState(-1);
 
   // Standard template designs
   const templateDesigns = [
@@ -111,6 +116,93 @@ const TattooCanvas = ({
     };
   };
 
+  // Canvas history functions
+  const saveCanvasState = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
+
+    const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    const newHistory = canvasHistory.slice(0, historyIndex + 1);
+    newHistory.push(imageData);
+    
+    // Limit history to 20 states
+    if (newHistory.length > 20) {
+      newHistory.shift();
+    }
+    
+    setCanvasHistory(newHistory);
+    setHistoryIndex(newHistory.length - 1);
+  }, [canvasHistory, historyIndex]);
+
+  const undo = useCallback(() => {
+    if (historyIndex > 0) {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      if (!canvas || !ctx) return;
+
+      const newIndex = historyIndex - 1;
+      ctx.putImageData(canvasHistory[newIndex], 0, 0);
+      setHistoryIndex(newIndex);
+      toast("Undone");
+    }
+  }, [canvasHistory, historyIndex]);
+
+  const redo = useCallback(() => {
+    if (historyIndex < canvasHistory.length - 1) {
+      const canvas = canvasRef.current;
+      const ctx = canvas?.getContext('2d');
+      if (!canvas || !ctx) return;
+
+      const newIndex = historyIndex + 1;
+      ctx.putImageData(canvasHistory[newIndex], 0, 0);
+      setHistoryIndex(newIndex);
+      toast("Redone");
+    }
+  }, [canvasHistory, historyIndex]);
+
+  const zoomIn = useCallback(() => {
+    if (zoom < 3) {
+      setZoom(prev => Math.min(prev + 0.25, 3));
+    }
+  }, [zoom]);
+
+  const zoomOut = useCallback(() => {
+    if (zoom > 0.5) {
+      setZoom(prev => Math.max(prev - 0.25, 0.5));
+    }
+  }, [zoom]);
+
+  const resetCanvas = useCallback(() => {
+    const canvas = canvasRef.current;
+    const ctx = canvas?.getContext('2d');
+    if (!canvas || !ctx) return;
+    
+    ctx.fillStyle = "#1A1F2C";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    saveCanvasState();
+    toast("Canvas reset");
+  }, [saveCanvasState]);
+
+  const downloadDesign = useCallback(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    
+    try {
+      const dataUrl = canvas.toDataURL('image/png');
+      const link = document.createElement('a');
+      link.download = `tattoo-design-${Date.now()}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      toast("Design downloaded successfully");
+    } catch (error) {
+      console.error('Error downloading design:', error);
+      toast.error('Failed to download design');
+    }
+  }, []);
+
   const handleAddText = (text: string, font: string, color: string, size: number) => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -130,6 +222,8 @@ const TattooCanvas = ({
     
     ctx.fillText(text, centerX, centerY);
     
+    saveCanvasState();
+    
     if (onAddText) {
       onAddText(text, font, color, size);
     }
@@ -138,34 +232,61 @@ const TattooCanvas = ({
   };
 
   return (
-    <div className="flex flex-col h-full">
-      <CanvasToolbar
-        activeTab={activeTab}
-        setActiveTab={setActiveTab}
-        activeColor={activeColor}
-        onColorChange={onColorChange}
-        strokeWidth={strokeWidth}
-        onStrokeWidthChange={onStrokeWidthChange}
-        onClear={clearCanvas}
-        onFileUpload={handleFileUpload}
-      />
-
-      {activeTab === "templates" && (
-        <TemplateGallery 
-          templates={templateDesigns} 
-          onTemplateSelect={loadTemplateDesign} 
+    <div className="flex gap-4 h-full">
+      {/* Left Sidebar - Tools and Colors */}
+      <div className="w-64 space-y-4">
+        <AdvancedCanvasTools
+          onUndo={undo}
+          onRedo={redo}
+          onZoomIn={zoomIn}
+          onZoomOut={zoomOut}
+          onReset={resetCanvas}
+          onDownload={downloadDesign}
+          zoom={zoom}
+          canUndo={historyIndex > 0}
+          canRedo={historyIndex < canvasHistory.length - 1}
         />
-      )}
-      
-      <div className="canvas-container flex-grow relative">
-        <DrawingCanvas
+        <ColorPalette
           activeColor={activeColor}
-          strokeWidth={strokeWidth}
-          canvasRef={canvasRef}
+          onColorChange={onColorChange}
         />
       </div>
-      
-      <QuickActions />
+
+      {/* Main Canvas Area */}
+      <div className="flex-1 flex flex-col">
+        <CanvasToolbar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          activeColor={activeColor}
+          onColorChange={onColorChange}
+          strokeWidth={strokeWidth}
+          onStrokeWidthChange={onStrokeWidthChange}
+          onClear={clearCanvas}
+          onFileUpload={handleFileUpload}
+        />
+
+        {activeTab === "templates" && (
+          <TemplateGallery 
+            templates={templateDesigns} 
+            onTemplateSelect={loadTemplateDesign} 
+          />
+        )}
+        
+        <div 
+          className="canvas-container flex-grow relative overflow-hidden"
+          style={{ transform: `scale(${zoom})`, transformOrigin: 'center' }}
+        >
+          <DrawingCanvas
+            activeColor={activeColor}
+            strokeWidth={strokeWidth}
+            canvasRef={canvasRef}
+            onSaveState={saveCanvasState}
+            zoom={zoom}
+          />
+        </div>
+        
+        <QuickActions />
+      </div>
     </div>
   );
 };

@@ -4,9 +4,11 @@ interface DrawingCanvasProps {
   activeColor: string;
   strokeWidth: number;
   canvasRef: React.RefObject<HTMLCanvasElement>;
+  onSaveState?: () => void;
+  zoom?: number;
 }
 
-const DrawingCanvas = ({ activeColor, strokeWidth, canvasRef }: DrawingCanvasProps) => {
+const DrawingCanvas = ({ activeColor, strokeWidth, canvasRef, onSaveState, zoom = 1 }: DrawingCanvasProps) => {
   const [isDrawing, setIsDrawing] = useState(false);
   const [prevPos, setPrevPos] = useState<{ x: number, y: number } | null>(null);
   const [canvasCtx, setCanvasCtx] = useState<CanvasRenderingContext2D | null>(null);
