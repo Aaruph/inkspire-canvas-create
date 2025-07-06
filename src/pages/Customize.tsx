@@ -101,8 +101,8 @@ const Customize = () => {
               </Card>
             </div>
             
-            {/* Main Canvas Area - Reduced from col-span-8 to col-span-7 to accommodate larger sidebar */}
-            <div className="lg:col-span-7">
+            {/* Main Canvas Area - Full width for customize mode */}
+            <div className={activeTab === 'customize' ? 'lg:col-span-9' : 'lg:col-span-7'}>
               <Card className="bg-card border-border h-[700px]">
                 <CardHeader className="pb-3">
                   <CardTitle className="text-foreground text-lg">
@@ -137,15 +137,15 @@ const Customize = () => {
                   )}
                   
                   {activeTab === 'customize' && (
-                    <div className="h-full bg-card">
-                      {/* Clean customize workspace */}
+                    <div className="h-full p-6">
+                      <AdvancedTextEditor onAddText={handleAddText} />
                     </div>
                   )}
                 </CardContent>
               </Card>
             </div>
 
-            {/* Right Sidebar - Body Views for Preview or Text Editor for Customize */}
+            {/* Right Sidebar - Body Views for Preview only */}
             {activeTab === 'preview' && (
               <div className="lg:col-span-2">
                 <BodyViews
@@ -157,19 +157,6 @@ const Customize = () => {
                   onRotationChange={setPreviewRotation}
                   onResetPosition={handleResetPosition}
                 />
-              </div>
-            )}
-            
-            {activeTab === 'customize' && (
-              <div className="lg:col-span-2">
-                <Card className="bg-card border-border h-fit">
-                  <CardHeader className="pb-3">
-                    <CardTitle className="text-foreground text-lg">Text Editor</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-4 pt-0">
-                    <AdvancedTextEditor onAddText={handleAddText} />
-                  </CardContent>
-                </Card>
               </div>
             )}
           </div>
