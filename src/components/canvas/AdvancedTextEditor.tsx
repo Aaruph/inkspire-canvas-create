@@ -7,7 +7,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Separator } from '@/components/ui/separator';
 import FontSelector from './FontSelector';
 import ColorPicker from './ColorPicker';
-import { Type, Plus, RotateCw, Move, Eye } from 'lucide-react';
+import { Type, Plus, RotateCw, Move, Eye, Languages, ArrowRight } from 'lucide-react';
 import { toast } from 'sonner';
 
 interface AdvancedTextEditorProps {
@@ -28,6 +28,11 @@ const AdvancedTextEditor = ({ onAddText }: AdvancedTextEditorProps) => {
   const [textColor, setTextColor] = useState('#000000');
   const [fontSize, setFontSize] = useState(48);
   
+  // Translation states
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [translatedText, setTranslatedText] = useState('');
+  const [isTranslating, setIsTranslating] = useState(false);
+  
   // Advanced controls
   const [rotation, setRotation] = useState(0);
   const [letterSpacing, setLetterSpacing] = useState(0);
@@ -37,13 +42,120 @@ const AdvancedTextEditor = ({ onAddText }: AdvancedTextEditorProps) => {
   const [fontStyle, setFontStyle] = useState<'normal' | 'italic'>('normal');
   const [opacity, setOpacity] = useState(100);
 
+  // Language options
+  const languages = [
+    { code: 'en', name: 'English', flag: '🇺🇸' },
+    { code: 'hi', name: 'Hindi', flag: '🇮🇳' },
+    { code: 'ne', name: 'Nepali', flag: '🇳🇵' },
+    { code: 'ar', name: 'Arabic', flag: '🇸🇦' },
+    { code: 'it', name: 'Italian', flag: '🇮🇹' },
+    { code: 'es', name: 'Spanish', flag: '🇪🇸' },
+    { code: 'fr', name: 'French', flag: '🇫🇷' },
+    { code: 'de', name: 'German', flag: '🇩🇪' },
+    { code: 'pt', name: 'Portuguese', flag: '🇵🇹' },
+    { code: 'ru', name: 'Russian', flag: '🇷🇺' },
+    { code: 'ja', name: 'Japanese', flag: '🇯🇵' },
+    { code: 'ko', name: 'Korean', flag: '🇰🇷' },
+    { code: 'zh', name: 'Chinese', flag: '🇨🇳' },
+    { code: 'th', name: 'Thai', flag: '🇹🇭' },
+    { code: 'ur', name: 'Urdu', flag: '🇵🇰' },
+    { code: 'bn', name: 'Bengali', flag: '🇧🇩' }
+  ];
+
+  // Simple translation function (basic word replacements for demo)
+  const translateText = async (textToTranslate: string, targetLang: string) => {
+    setIsTranslating(true);
+    
+    try {
+      // Basic translation mappings for common words
+      const translations: Record<string, Record<string, string>> = {
+        hi: {
+          'love': 'प्रेम',
+          'peace': 'शांति',
+          'strength': 'शक्ति',
+          'family': 'परिवार',
+          'dream': 'सपना',
+          'hope': 'आशा',
+          'faith': 'विश्वास',
+          'courage': 'साहस',
+          'freedom': 'स्वतंत्रता',
+          'warrior': 'योद्धा'
+        },
+        ne: {
+          'love': 'माया',
+          'peace': 'शान्ति',
+          'strength': 'शक्ति',
+          'family': 'परिवार',
+          'dream': 'सपना',
+          'hope': 'आशा',
+          'faith': 'विश्वास',
+          'courage': 'साहस',
+          'freedom': 'स्वतन्त्रता',
+          'warrior': 'योद्धा'
+        },
+        ar: {
+          'love': 'حب',
+          'peace': 'سلام',
+          'strength': 'قوة',
+          'family': 'عائلة',
+          'dream': 'حلم',
+          'hope': 'أمل',
+          'faith': 'إيمان',
+          'courage': 'شجاعة',
+          'freedom': 'حرية',
+          'warrior': 'محارب'
+        },
+        it: {
+          'love': 'amore',
+          'peace': 'pace',
+          'strength': 'forza',
+          'family': 'famiglia',
+          'dream': 'sogno',
+          'hope': 'speranza',
+          'faith': 'fede',
+          'courage': 'coraggio',
+          'freedom': 'libertà',
+          'warrior': 'guerriero'
+        },
+        es: {
+          'love': 'amor',
+          'peace': 'paz',
+          'strength': 'fuerza',
+          'family': 'familia',
+          'dream': 'sueño',
+          'hope': 'esperanza',
+          'faith': 'fe',
+          'courage': 'coraje',
+          'freedom': 'libertad',
+          'warrior': 'guerrero'
+        }
+      };
+
+      const targetTranslations = translations[targetLang];
+      if (targetTranslations) {
+        const lowerText = textToTranslate.toLowerCase();
+        const translated = targetTranslations[lowerText] || textToTranslate;
+        setTranslatedText(translated);
+        setText(translated);
+        toast.success(`Translated to ${languages.find(l => l.code === targetLang)?.name}`);
+      } else {
+        toast.error('Translation not available for this language yet');
+      }
+    } catch (error) {
+      toast.error('Translation failed');
+    } finally {
+      setIsTranslating(false);
+    }
+  };
+
   const handleAddText = () => {
-    if (!text.trim()) {
+    const textToAdd = translatedText || text;
+    if (!textToAdd.trim()) {
       toast.error('Please enter some text');
       return;
     }
     
-    onAddText(text, selectedFont, textColor, fontSize, {
+    onAddText(textToAdd, selectedFont, textColor, fontSize, {
       rotation,
       letterSpacing,
       lineHeight,
@@ -54,6 +166,7 @@ const AdvancedTextEditor = ({ onAddText }: AdvancedTextEditorProps) => {
     });
     
     setText('');
+    setTranslatedText('');
     toast.success('Advanced text added to canvas');
   };
 
@@ -83,6 +196,60 @@ const AdvancedTextEditor = ({ onAddText }: AdvancedTextEditorProps) => {
           className="bg-card border-border text-foreground placeholder-muted-foreground"
         />
       </div>
+
+      {/* Translation Section */}
+      <div className="space-y-4">
+        <div className="flex items-center gap-2">
+          <Languages className="w-4 h-4 text-primary" />
+          <Label className="text-sm font-medium text-foreground">Translation</Label>
+        </div>
+        
+        <div className="grid grid-cols-1 gap-3">
+          <div className="space-y-2">
+            <Label className="text-sm text-foreground">Translate to:</Label>
+            <Select value={selectedLanguage} onValueChange={setSelectedLanguage}>
+              <SelectTrigger>
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                {languages.map((lang) => (
+                  <SelectItem key={lang.code} value={lang.code}>
+                    <span className="flex items-center gap-2">
+                      <span>{lang.flag}</span>
+                      <span>{lang.name}</span>
+                    </span>
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+          
+          <Button
+            onClick={() => translateText(text, selectedLanguage)}
+            disabled={!text.trim() || selectedLanguage === 'en' || isTranslating}
+            variant="outline"
+            className="w-full"
+          >
+            {isTranslating ? (
+              <>Translating...</>
+            ) : (
+              <>
+                <ArrowRight className="w-4 h-4 mr-2" />
+                Translate Text
+              </>
+            )}
+          </Button>
+          
+          {translatedText && (
+            <div className="p-3 bg-muted/50 rounded-lg border border-border">
+              <Label className="text-xs text-muted-foreground">Translated:</Label>
+              <p className="text-sm font-medium text-foreground mt-1">{translatedText}</p>
+            </div>
+          )}
+        </div>
+      </div>
+
+      <Separator />
 
       {/* Font & Color Row */}
       <div className="grid grid-cols-1 gap-4">
@@ -278,7 +445,7 @@ const AdvancedTextEditor = ({ onAddText }: AdvancedTextEditorProps) => {
             }}
             className="break-words min-h-[40px] flex items-center justify-center mx-auto max-w-full"
           >
-            {text || 'Your text here...'}
+            {translatedText || text || 'Your text here...'}
           </div>
         </div>
       </div>
