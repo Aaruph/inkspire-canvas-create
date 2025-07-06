@@ -137,21 +137,8 @@ const Customize = () => {
                   )}
                   
                   {activeTab === 'customize' && (
-                    <div className="h-full flex items-center justify-center">
-                      <div className="text-center max-w-md mx-auto p-8">
-                        <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mx-auto mb-4 flex items-center justify-center">
-                          <span className="text-2xl">✨</span>
-                        </div>
-                        <h3 className="text-xl font-display uppercase tracking-wider text-foreground mb-3">
-                          Customize Mode
-                        </h3>
-                        <p className="text-muted-foreground mb-4">
-                          Use the text editor on the right to add custom text tattoos with different fonts and colors.
-                        </p>
-                        <p className="text-sm text-muted-foreground">
-                          Switch to Draw to see your complete design
-                        </p>
-                      </div>
+                    <div className="h-full bg-card">
+                      {/* Clean customize workspace */}
                     </div>
                   )}
                 </CardContent>
