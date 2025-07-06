@@ -137,8 +137,10 @@ const Customize = () => {
                   )}
                   
                   {activeTab === 'customize' && (
-                    <div className="h-full p-6">
-                      <AdvancedTextEditor onAddText={handleAddText} />
+                    <div className="h-full p-6 overflow-y-auto">
+                      <div className="max-w-md mx-auto">
+                        <AdvancedTextEditor onAddText={handleAddText} />
+                      </div>
                     </div>
                   )}
                 </CardContent>
