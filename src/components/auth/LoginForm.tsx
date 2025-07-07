@@ -45,15 +45,24 @@ const LoginForm = () => {
       // Demo login - in a real app, this would be an actual API call
       await new Promise((resolve) => setTimeout(resolve, 1000));
       
-      // For demo purposes, determine role based on email domain
+      // For demo purposes, determine role based on email domain or keywords
+      const isAdmin = values.email.includes("admin") || values.email.includes("@admin");
       const isArtist = values.email.includes("artist") || values.email.includes("@art");
-      const role = isArtist ? "artist" : "customer";
+      let role: "customer" | "artist" | "admin" | "super_admin";
+      
+      if (isAdmin) {
+        role = values.email.includes("super") ? "super_admin" : "admin";
+      } else if (isArtist) {
+        role = "artist";
+      } else {
+        role = "customer";
+      }
       
       const mockUser = {
         id: "user-1",
         email: values.email,
         name: values.email.split('@')[0],
-        role: role as "customer" | "artist",
+        role: role,
       };
       
       login(mockUser);
@@ -63,7 +72,9 @@ const LoginForm = () => {
       });
       
       // Route based on user role
-      if (role === "artist") {
+      if (role === "admin" || role === "super_admin") {
+        navigate("/admin");
+      } else if (role === "artist") {
         navigate("/artist");
       } else {
         navigate("/");
@@ -75,6 +86,19 @@ const LoginForm = () => {
     } finally {
       setIsLoading(false);
     }
+  };
+
+  const quickAdminLogin = () => {
+    const adminUser = {
+      id: "admin-1",
+      email: "admin@inkspire.com",
+      name: "Admin User",
+      role: "super_admin" as const,
+    };
+    
+    login(adminUser);
+    toast.success("Logged in as Admin");
+    navigate("/admin");
   };
 
   return (
@@ -142,6 +166,17 @@ const LoginForm = () => {
           </Button>
         </form>
       </Form>
+      
+      <div className="pt-4 border-t border-white/20">
+        <p className="text-white/60 text-sm text-center mb-3">Quick Demo Access:</p>
+        <Button 
+          onClick={quickAdminLogin}
+          variant="outline"
+          className="w-full bg-red-500/20 text-white border-red-400/50 hover:bg-red-500/30"
+        >
+          🛡️ Login as Admin (Demo)
+        </Button>
+      </div>
     </div>
   );
 };
