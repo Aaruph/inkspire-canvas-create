@@ -2,7 +2,7 @@
 import { useState, useEffect, createContext, useContext, ReactNode } from "react";
 import { useLocalStorage } from "./useLocalStorage";
 
-type UserRole = "customer" | "artist";
+type UserRole = "customer" | "artist" | "admin" | "super_admin";
 
 type User = {
   id: string;

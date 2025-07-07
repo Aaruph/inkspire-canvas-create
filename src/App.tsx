@@ -23,6 +23,14 @@ import ArtistPortfolio from "./pages/artist/ArtistPortfolio";
 import ArtistAvailability from "./pages/artist/ArtistAvailability";
 import ArtistReviews from "./pages/artist/ArtistReviews";
 import ArtistProfilePage from "./pages/artist/ArtistProfile";
+import { AdminLayout } from "./components/admin/AdminLayout";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import AdminUsers from "./pages/admin/AdminUsers";
+import AdminArtists from "./pages/admin/AdminArtists";
+import AdminDesigns from "./pages/admin/AdminDesigns";
+import AdminBookings from "./pages/admin/AdminBookings";
+import AdminAnalytics from "./pages/admin/AdminAnalytics";
+import AdminSettings from "./pages/admin/AdminSettings";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +61,17 @@ const App = () => (
               <Route path="/artist/availability" element={<ArtistAvailability />} />
               <Route path="/artist/reviews" element={<ArtistReviews />} />
               <Route path="/artist/profile" element={<ArtistProfilePage />} />
+              
+              {/* Admin Routes */}
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboard />} />
+                <Route path="users" element={<AdminUsers />} />
+                <Route path="artists" element={<AdminArtists />} />
+                <Route path="designs" element={<AdminDesigns />} />
+                <Route path="bookings" element={<AdminBookings />} />
+                <Route path="analytics" element={<AdminAnalytics />} />
+                <Route path="settings" element={<AdminSettings />} />
+              </Route>
               
               <Route path="*" element={<NotFound />} />
             </Routes>
