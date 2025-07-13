@@ -12,6 +12,7 @@ import Designs from "./pages/Designs";
 import DesignDetails from "./pages/DesignDetails";
 import Artists from "./pages/Artists";
 import ArtistProfile from "./pages/ArtistProfile";
+import Help from "./pages/Help";
 import Booking from "./pages/Booking";
 import Auth from "./pages/Auth";
 import ForgotPassword from "./pages/ForgotPassword";
@@ -49,6 +50,7 @@ const App = () => (
               <Route path="/designs/:id" element={<DesignDetails />} />
               <Route path="/artists" element={<Artists />} />
               <Route path="/artists/:id" element={<ArtistProfile />} />
+              <Route path="/help" element={<Help />} />
               <Route path="/booking" element={<Booking />} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/forgot-password" element={<ForgotPassword />} />

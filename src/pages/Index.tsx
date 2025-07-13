@@ -32,7 +32,7 @@ const Index = () => {
                 size="lg" 
                 className="bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
               >
-                <Link to="/customize">Start Designing</Link>
+                <Link to="/customize">Design Your Tattoo</Link>
               </Button>
               <Button 
                 asChild
@@ -72,12 +72,17 @@ const Index = () => {
                   </li>
                   <li>
                     <Link to="/artists" className="text-ink-light/60 hover:text-ink-accent transition-colors">
-                      Our Artists
+                      Find Artists
                     </Link>
                   </li>
                   <li>
                     <Link to="/customize" className="text-ink-light/60 hover:text-ink-accent transition-colors">
-                      Customize Tattoo
+                      Design Your Tattoo
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/help" className="text-ink-light/60 hover:text-ink-accent transition-colors">
+                      Help & FAQ
                     </Link>
                   </li>
                   <li>

@@ -105,7 +105,7 @@ const LoginForm = () => {
     <div className="space-y-6 w-full max-w-md">
       <div className="space-y-2 text-center">
         <h1 className="text-3xl font-display text-white">WELCOME BACK</h1>
-        <p className="text-white/70">Enter your credentials to access your account</p>
+        <p className="text-white/70">Sign in to access your tattoo designs and bookings</p>
       </div>
 
       <Form {...form}>
@@ -118,11 +118,14 @@ const LoginForm = () => {
                 <FormLabel className="text-white font-medium">EMAIL</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="your.email@example.com" 
+                    placeholder="Enter your email address" 
                     type="email" 
                     {...field} 
                     className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
+                  <p className="text-xs text-white/60 mt-1">
+                    Use any email ending with @artist for artist account, or admin@test.com for admin access
+                  </p>
                 </FormControl>
                 <FormMessage className="text-red-300" />
               </FormItem>
@@ -137,11 +140,14 @@ const LoginForm = () => {
                 <FormLabel className="text-white font-medium">PASSWORD</FormLabel>
                 <FormControl>
                   <Input 
-                    placeholder="••••••••" 
+                    placeholder="Enter your password (min. 6 characters)" 
                     type="password" 
                     {...field} 
                     className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
+                  <p className="text-xs text-white/60 mt-1">
+                    For demo: use any password with 6+ characters
+                  </p>
                 </FormControl>
                 <FormMessage className="text-red-300" />
               </FormItem>

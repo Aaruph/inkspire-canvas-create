@@ -33,11 +33,14 @@ const Navbar = () => {
   return (
     <nav className="py-4 border-b border-border bg-background/95 sticky top-0 z-50 backdrop-blur-sm">
       <div className="ink-container flex justify-between items-center">
-        <Link to="/" className="flex items-center space-x-2">
+        <Link to="/" className="flex items-center space-x-2 group">
           <div className="w-10 h-10 rounded-full bg-gradient-to-tr from-primary to-primary/80 animate-pulse-glow flex items-center justify-center">
             <span className="font-display text-primary-foreground text-xl">IS</span>
           </div>
-          <span className="font-display text-2xl text-foreground">Inkspire</span>
+          <div className="flex flex-col">
+            <span className="font-display text-2xl text-foreground">Inkspire</span>
+            <span className="text-xs text-muted-foreground hidden md:block">Tattoo Design Studio</span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
@@ -56,7 +59,15 @@ const Navbar = () => {
               `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'} link-hover`
             }
           >
-            Artists
+            Find Artists
+          </NavLink>
+          <NavLink 
+            to="/help" 
+            className={({ isActive }) => 
+              `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'} link-hover`
+            }
+          >
+            Help & FAQ
           </NavLink>
           <NavLink 
             to="/customize" 
@@ -64,7 +75,7 @@ const Navbar = () => {
               `text-lg font-medium transition-colors duration-200 ${isActive ? 'text-primary' : 'text-foreground hover:text-primary'} link-hover`
             }
           >
-            Customize
+            Design Your Tattoo
           </NavLink>
           
           <ThemeToggle />
@@ -87,7 +98,11 @@ const Navbar = () => {
                   My Bookings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
-                <DropdownMenuItem onClick={handleLogout}>
+                <DropdownMenuItem onClick={() => {
+                  if (window.confirm('Are you sure you want to logout?')) {
+                    handleLogout();
+                  }
+                }}>
                   <LogOut className="h-4 w-4 mr-2" />
                   Logout
                 </DropdownMenuItem>
@@ -136,7 +151,16 @@ const Navbar = () => {
                 }
                 onClick={() => setIsMenuOpen(false)}
               >
-                Artists
+                Find Artists
+              </NavLink>
+              <NavLink 
+                to="/help" 
+                className={({ isActive }) => 
+                  `text-lg font-medium py-2 px-4 rounded-md transition-colors duration-200 ${isActive ? 'bg-accent text-accent-foreground' : 'text-foreground hover:bg-accent/50 hover:text-accent-foreground'}`
+                }
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Help & FAQ
               </NavLink>
               <NavLink 
                 to="/customize" 
@@ -145,7 +169,7 @@ const Navbar = () => {
                 }
                 onClick={() => setIsMenuOpen(false)}
               >
-                Customize
+                Design Your Tattoo
               </NavLink>
 
               {isAuthenticated ? (
@@ -175,8 +199,10 @@ const Navbar = () => {
                     variant="destructive"
                     className="w-full"
                     onClick={() => {
-                      handleLogout();
-                      setIsMenuOpen(false);
+                      if (window.confirm('Are you sure you want to logout?')) {
+                        handleLogout();
+                        setIsMenuOpen(false);
+                      }
                     }}
                   >
                     <LogOut className="h-4 w-4 mr-2" />

@@ -25,7 +25,7 @@ const Hero = () => {
                 size="lg" 
                 className="bg-gradient-to-r from-ink-accent to-ink-accent2 text-ink-dark hover:shadow-lg hover:shadow-ink-accent/20 transition-all duration-300"
               >
-                <Link to="/customize">Customize Design</Link>
+                <Link to="/customize">Design Your Tattoo</Link>
               </Button>
               <Button 
                 asChild
