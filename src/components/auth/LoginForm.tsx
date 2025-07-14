@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -123,10 +124,10 @@ const LoginForm = () => {
                     {...field} 
                     className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
-                  <p className="text-xs text-white/60 mt-1">
-                    Use any email ending with @artist for artist account, or admin@test.com for admin access
-                  </p>
                 </FormControl>
+                <FormDescription className="text-xs text-white/60">
+                  Use any email ending with @artist for artist account, or admin@test.com for admin access
+                </FormDescription>
                 <FormMessage className="text-red-300" />
               </FormItem>
             )}
@@ -145,10 +146,10 @@ const LoginForm = () => {
                     {...field} 
                     className="bg-white/10 backdrop-blur-sm border border-white/30 text-white placeholder:text-white/50 focus:border-white/50 focus:ring-white/20 rounded-lg"
                   />
-                  <p className="text-xs text-white/60 mt-1">
-                    For demo: use any password with 6+ characters
-                  </p>
                 </FormControl>
+                <FormDescription className="text-xs text-white/60">
+                  For demo: use any password with 6+ characters
+                </FormDescription>
                 <FormMessage className="text-red-300" />
               </FormItem>
             )}
